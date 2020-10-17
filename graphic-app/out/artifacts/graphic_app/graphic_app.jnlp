@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="graphic_app.jnlp">
+  <information>
+    <title>graphic-app</title>
+    <vendor>Unknown</vendor>
+    <description>graphic-app</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="graphic_app.jar" size="12825" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="sample.RunnableDemo"  name="graphic-app" />
+  <update check="background"/>
+</jnlp>

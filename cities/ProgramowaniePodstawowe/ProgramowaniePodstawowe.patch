@@ -1,0 +1,3193 @@
+Index: src/zadania_dom/okienkowy/MyFrame.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/okienkowy/MyFrame.java	(date 1587378777726)
++++ src/zadania_dom/okienkowy/MyFrame.java	(date 1587378777726)
+@@ -0,0 +1,20 @@
++package zadania_dom.okienkowy;
++
++import javax.swing.*;
++import java.awt.*;
++
++public class MyFrame extends JFrame {
++    public MyFrame() {
++        super("Hello World");
++        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
++        setSize(300, 100);
++        setLocation(50,50);
++        setLayout(new FlowLayout());
++
++        add(new JButton("Przycisk 1"));
++        add(new JButton("Przycisk 2"));
++        add(new JButton("Przycisk 3"));
++
++        setVisible(true);
++    }
++}
+Index: src/zadania_dom/okienkowy/Test.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/okienkowy/Test.java	(date 1587378777808)
++++ src/zadania_dom/okienkowy/Test.java	(date 1587378777808)
+@@ -0,0 +1,14 @@
++package zadania_dom.okienkowy;
++
++import java.awt.*;
++
++public class Test {
++    public static void main(String[] args) {
++        EventQueue.invokeLater(new Runnable() {
++            @Override
++            public void run() {
++                new MyFrame();
++            }
++        });
++    }
++}
+Index: src/struktury_danych/stos_lista/StosPustyException.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/struktury_danych/stos_lista/StosPustyException.java	(date 1583659962000)
++++ src/struktury_danych/stos_lista/StosPustyException.java	(date 1583659962000)
+@@ -0,0 +1,8 @@
++package struktury_danych.stos_lista;
++
++public class StosPustyException extends RuntimeException {
++     public  StosPustyException(){
++         super("Stos jest pusty!");
++     }
++
++}
+Index: src/struktury_danych/stos_lista/StosElem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/struktury_danych/stos_lista/StosElem.java	(revision a12a8a0cc50f1936331a8dc1eb38cb0d9f395787)
++++ src/struktury_danych/stos_lista/StosElem.java	(date 1583922338587)
+@@ -4,18 +4,18 @@
+ 
+ public class StosElem {
+     private int value;
+-    private StosElem prev;
++    private StosElem prev;  //poprzedni
+ 
+-    public StosElem(int value){
++    public StosElem(int value, StosElem prev){
+        this.value = value;
+         this.prev = prev;
+ 
+     }
+-
++// getValue Instancja obiektu, z którego chcesz uzyskać wartość właściwości, jeśli właściwość nie jest statyczna. Opcjonalne, jeśli właściwość jest statyczna.
+     public int getValue() {
+         return value;
+     }
+-
++//getPrev - Zwraca poprzedni wpis bieżącego lub określonego wpisu w nawigatorze widoku
+     public StosElem getPrev() {
+         return prev;
+     }
+Index: src/struktury_danych/kolejka_lista/KolejkaElem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/struktury_danych/kolejka_lista/KolejkaElem.java	(date 1583668682000)
++++ src/struktury_danych/kolejka_lista/KolejkaElem.java	(date 1583668682000)
+@@ -0,0 +1,28 @@
++package struktury_danych.kolejka_lista;
++
++public class KolejkaElem {
++
++    private int value;
++    private KolejkaElem next;
++
++    public KolejkaElem(int value) {
++        this.value = value;
++        this.next = null;
++    }
++
++    public int getValue() {
++        return value;
++    }
++
++    public void setValue(int value) {
++        this.value = value;
++    }
++
++    public KolejkaElem getNext() {
++        return next;
++    }
++
++    public void setNext(KolejkaElem next) {
++        this.next = next;
++    }
++}
+Index: src/struktury_danych/StosTablica.java
+===================================================================
+--- src/struktury_danych/StosTablica.java	(revision a12a8a0cc50f1936331a8dc1eb38cb0d9f395787)
++++ src/struktury_danych/kolejka_lista/StosTablica.java	(date 1583761762762)
+@@ -1,4 +1,4 @@
+-package struktury_danych;
++package struktury_danych.kolejka_lista;
+ 
+ public class StosTablica {
+ 
+@@ -60,7 +60,7 @@
+         System.out.println("Pop: " + stosTablica.pop());
+ 
+         System.out.println("isEmpty: " + stosTablica.isEmpty());
+- 
++
+ 
+ 
+     }
+Index: src/struktury_danych/kolejka_lista/KolejkaLista.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/struktury_danych/kolejka_lista/KolejkaLista.java	(date 1587540096798)
++++ src/struktury_danych/kolejka_lista/KolejkaLista.java	(date 1587540096798)
+@@ -0,0 +1,74 @@
++package struktury_danych.kolejka_lista;
++
++public class KolejkaLista {
++
++    private KolejkaElem frist;  //pierwszy
++    private KolejkaElem last;   //ostatni
++
++    public KolejkaLista() {
++        frist = last = null;
++    }
++
++    public boolean isEmpty() { // sprawdza czy pusty
++        return frist == null && last == null;
++    }
++
++    public void add(int value) { //dodaje elenent do kolejki jak ostatni
++        KolejkaElem elem = new KolejkaElem(value);
++
++        if (isEmpty()) {
++            frist = last = elem;
++        } else {
++            last.setNext(elem);
++            last = elem;
++
++
++        }
++    }
++
++    public int peek() { //podglad pierwszego w kojejce
++        if (isEmpty()) {
++            //powinien być wyjatek w razie bledu
++        }
++        return frist.getValue();
++    }
++
++    public int poll(){ //kasuje pierwszego z kolejki i przypisuje dane do int value
++        if(isEmpty()){
++            //powinien być wyjatek bo kolejka pusta
++        }
++        int value = frist.getValue();
++        frist=frist.getNext();
++        if(frist == null){  //jezeli usuwamy ostatni obiekt z kolejki
++            last = null;
++        }
++        return value;
++    }
++
++    public static void main(String[] args) {
++        KolejkaLista kolejka = new KolejkaLista();
++        kolejka.add(5);
++        kolejka.add(10);
++        kolejka.add(22);
++        kolejka.add(33);
++        kolejka.add(-100);
++
++//        kolejka.poll();
++//        kolejka.poll();
++//        kolejka.poll();
++//        kolejka.poll();
++
++
++        System.out.println("Peek: " + kolejka.peek());
++        System.out.println("Poll: " + kolejka.poll());
++        System.out.println("Poll: " + kolejka.poll());
++        System.out.println("Poll: " + kolejka.poll());
++
++
++    }
++
++
++}
++
++
++
+Index: src/struktury_danych/dwukierunkowa_lista/DwukierunLista.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/struktury_danych/dwukierunkowa_lista/DwukierunLista.java	(date 1584265894345)
++++ src/struktury_danych/dwukierunkowa_lista/DwukierunLista.java	(date 1584265894345)
+@@ -0,0 +1,183 @@
++package struktury_danych.dwukierunkowa_lista;
++
++import struktury_danych.kolejka_lista.KolejkaLista;
++import struktury_danych.stos_lista.StosElem;
++
++public class DwukierunLista {
++
++    private DwukierunListaElem frist;   //pierwszy
++    private DwukierunListaElem last;    //ostatni
++
++    private DwukierunLista() {
++        frist = last = null;
++    }
++
++    public boolean isEmpty() { // sprawdza czy pusty
++        return frist == null && last == null;
++    }
++
++    //....................................................................................................
++    public void addFrist(int value) {   //dodaj pierwszy element z lizty
++        int value1 = last.getValue();
++        DwukierunListaElem elem = new DwukierunListaElem(value1);
++        last.setNext(elem);
++        elem.setPrev(last);
++        last = elem;
++        DwukierunListaElem elem1 = frist;
++        elem1 = elem1.getNext();
++        while (elem1 != elem) {
++            elem = elem.getPrev();
++            elem = elem.getPrev();
++            value1 = elem.getValue();
++            elem = elem.getNext();
++            elem.setValue(value1);
++            //    elem = elem.getPrev();
++        }
++        elem = elem.getPrev();
++        elem.setValue(value);
++        // show();
++    }
++
++    //....................................................................................................
++    public void addLast(int value) {     //dodaj ostatni element do listy
++        DwukierunListaElem elem = new DwukierunListaElem(value);
++        if (isEmpty()) {
++            frist = last = elem;
++        } else {
++            last.setNext(elem);
++            elem.setPrev(last);
++            last = elem;
++        }
++    }
++
++    //....................................................................................................
++    public int pollFrist() { //kasuje pierwszego z listy i przypisuje dane do int value
++        int value = frist.getValue();
++        frist = frist.getNext();
++        if (frist == null) {  //jezeli usuwamy ostatni obiekt z kolejki
++            last = null;
++        }
++        return value;
++    }
++
++    //....................................................................................................
++    public int pollLast() { //kasuje oststniego z listy i przypisuje dane do int value
++        int value = last.getValue();
++        last = last.getPrev();
++        if (last == null) {  //jezeli usuwamy ostatni obiekt z kolejki
++            frist = null;
++        }
++        return value;
++    }
++
++    //....................................................................................................
++    public int peekFrist() { //podglad pierwszego w kojejce
++        if (isEmpty()) {
++            //powinien być wyjatek w razie bledu
++        }
++        return frist.getValue();
++    }
++
++    //....................................................................................................
++    public int peekLast() { //podglad postatniego w kojejce
++        if (isEmpty()) {
++            //powinien być wyjatek w razie bledu
++        }
++        return last.getValue();
++    }
++
++    //....................................................................................................
++    public void show() {  //czyta od przodu
++        DwukierunListaElem elem = frist;
++        while (elem != null) {
++            System.out.print(elem.getValue() + " ");
++            if (last == elem) {
++                break;
++            }
++            elem = elem.getNext();
++        }
++        System.out.println();
++    }
++
++    //...................................................................................................
++    public void showReverse() {  //czyta od tyly
++        DwukierunListaElem elem = last;
++        while (elem != null) {
++            System.out.print(elem.getValue() + " ");
++            if (frist == elem) {
++                break;
++            }
++            elem = elem.getPrev();
++        }
++        System.out.println();
++    }
++
++//****************************************************************************************************
++
++    public static void main(String[] args) {
++        DwukierunLista kolejka = new DwukierunLista();
++        kolejka.addLast(4);
++        kolejka.addLast(5);
++        kolejka.addLast(9);
++
++        kolejka.addFrist(100);
++        kolejka.addFrist(101);
++        kolejka.addFrist(102);
++        kolejka.show();
++        kolejka.showReverse();
++        kolejka.addLast(13);
++        kolejka.addLast(23);
++        kolejka.show();
++        kolejka.showReverse();
++//        kolejka.addLast(33);
++//        kolejka.addLast(43);
++//        kolejka.addLast(53);
++//        kolejka.addLast(63);
++//        kolejka.show();
++//        kolejka.showReverse();
++//        kolejka.addLast(77);
++//        kolejka.addLast(88);
++//        kolejka.show();
++//        kolejka.showReverse();
++//      //  kolejka.pollFrist(); //kasuje pierwszego
++////        kolejka.showReverse();
++//        // kolejka.pollFrist();
++//          System.out.println("kasuje ostatniego: " + kolejka.pollLast());
++//           System.out.println("kasuje ostatniego: " + kolejka.pollLast());
++//         kolejka.show();
++//         kolejka.showReverse();
++//        System.out.println("kasuje pierwszego: " + kolejka.pollFrist());
++// //       System.out.println("kasuje pierwszego: " + kolejka.pollFrist());
++//        // kolejka.addLast(99);
++//        // kolejka.show();
++//        System.out.println("podgląd pierwszego: " + kolejka.peekFrist());
++//        kolejka.show();
++//        kolejka.showReverse();
++//        //    kolejka.showReverse();
++//
++//        // kolejka.addFrist(4);
++//        // kolejka.addFrist(8);
++//
++//        //       System.out.println("kasuje ostatniego: " + kolejka.pollLast());
++//
++//        //       System.out.println("podgląd pierwszego: " + kolejka.peekFrist());
++//               System.out.println("podgląd ostatniego: " + kolejka.peekLast());
++
++//        kolejka.add(810);
++//        kolejka.add(810);
++//        kolejka.add(810);
++
++//        kolejka.poll();
++//        kolejka.poll();
++//        kolejka.poll();
++//        kolejka.poll();
++//        kolejka.poll();
++
++
++        //  System.out.println("Poll: " + kolejka.poll());
++        //   System.out.println("Poll: " + kolejka.poll());
++
++    }
++
++
++}
+Index: src/struktury_danych/dwukierunkowa_lista/DwukierunListaElem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/struktury_danych/dwukierunkowa_lista/DwukierunListaElem.java	(date 1584008248457)
++++ src/struktury_danych/dwukierunkowa_lista/DwukierunListaElem.java	(date 1584008248457)
+@@ -0,0 +1,43 @@
++package struktury_danych.dwukierunkowa_lista;
++
++public class DwukierunListaElem {
++
++    private int value;
++    private DwukierunListaElem next;    //nastepny
++    private DwukierunListaElem prev;    //poprzedni
++
++    public DwukierunListaElem(int value){
++        this.value = value;
++        this.next = null;
++        this.prev = null;
++
++    }
++    public DwukierunListaElem(int value, DwukierunListaElem prev){
++        this.value = value;
++        this.prev = prev;
++    }
++
++    public int getValue() {
++                return value;
++    }
++
++    public void setValue(int value) {
++        this.value = value;
++    }
++
++    public DwukierunListaElem getNext() {
++        return next;
++    }
++
++    public void setNext(DwukierunListaElem next) {
++            this.next = next;
++    }
++
++    public DwukierunListaElem getPrev() {
++        return prev;
++    }
++
++    public void setPrev(DwukierunListaElem prev) {
++        this.prev = prev;
++    }
++}
+Index: .idea/uiDesigner.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/uiDesigner.xml	(date 1583587414000)
++++ .idea/uiDesigner.xml	(date 1583587414000)
+@@ -0,0 +1,124 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="Palette2">
++    <group name="Swing">
++      <item class="com.intellij.uiDesigner.HSpacer" tooltip-text="Horizontal Spacer" icon="/com/intellij/uiDesigner/icons/hspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="1" hsize-policy="6" anchor="0" fill="1" />
++      </item>
++      <item class="com.intellij.uiDesigner.VSpacer" tooltip-text="Vertical Spacer" icon="/com/intellij/uiDesigner/icons/vspacer.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="1" anchor="0" fill="2" />
++      </item>
++      <item class="javax.swing.JPanel" icon="/com/intellij/uiDesigner/icons/panel.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JScrollPane" icon="/com/intellij/uiDesigner/icons/scrollPane.png" removable="false" auto-create-binding="false" can-attach-label="true">
++        <default-constraints vsize-policy="7" hsize-policy="7" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JButton" icon="/com/intellij/uiDesigner/icons/button.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="0" fill="1" />
++        <initial-values>
++          <property name="text" value="Button" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JRadioButton" icon="/com/intellij/uiDesigner/icons/radioButton.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="RadioButton" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JCheckBox" icon="/com/intellij/uiDesigner/icons/checkBox.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="3" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="CheckBox" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JLabel" icon="/com/intellij/uiDesigner/icons/label.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="0" anchor="8" fill="0" />
++        <initial-values>
++          <property name="text" value="Label" />
++        </initial-values>
++      </item>
++      <item class="javax.swing.JTextField" icon="/com/intellij/uiDesigner/icons/textField.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JPasswordField" icon="/com/intellij/uiDesigner/icons/passwordField.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JFormattedTextField" icon="/com/intellij/uiDesigner/icons/formattedTextField.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1">
++          <preferred-size width="150" height="-1" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTextArea" icon="/com/intellij/uiDesigner/icons/textArea.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTextPane" icon="/com/intellij/uiDesigner/icons/textPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JEditorPane" icon="/com/intellij/uiDesigner/icons/editorPane.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JComboBox" icon="/com/intellij/uiDesigner/icons/comboBox.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="2" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JTable" icon="/com/intellij/uiDesigner/icons/table.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JList" icon="/com/intellij/uiDesigner/icons/list.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="2" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTree" icon="/com/intellij/uiDesigner/icons/tree.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3">
++          <preferred-size width="150" height="50" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JTabbedPane" icon="/com/intellij/uiDesigner/icons/tabbedPane.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
++          <preferred-size width="200" height="200" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JSplitPane" icon="/com/intellij/uiDesigner/icons/splitPane.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="3" hsize-policy="3" anchor="0" fill="3">
++          <preferred-size width="200" height="200" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JSpinner" icon="/com/intellij/uiDesigner/icons/spinner.png" removable="false" auto-create-binding="true" can-attach-label="true">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JSlider" icon="/com/intellij/uiDesigner/icons/slider.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="8" fill="1" />
++      </item>
++      <item class="javax.swing.JSeparator" icon="/com/intellij/uiDesigner/icons/separator.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="6" anchor="0" fill="3" />
++      </item>
++      <item class="javax.swing.JProgressBar" icon="/com/intellij/uiDesigner/icons/progressbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1" />
++      </item>
++      <item class="javax.swing.JToolBar" icon="/com/intellij/uiDesigner/icons/toolbar.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="6" anchor="0" fill="1">
++          <preferred-size width="-1" height="20" />
++        </default-constraints>
++      </item>
++      <item class="javax.swing.JToolBar$Separator" icon="/com/intellij/uiDesigner/icons/toolbarSeparator.png" removable="false" auto-create-binding="false" can-attach-label="false">
++        <default-constraints vsize-policy="0" hsize-policy="0" anchor="0" fill="1" />
++      </item>
++      <item class="javax.swing.JScrollBar" icon="/com/intellij/uiDesigner/icons/scrollbar.png" removable="false" auto-create-binding="true" can-attach-label="false">
++        <default-constraints vsize-policy="6" hsize-policy="0" anchor="0" fill="2" />
++      </item>
++    </group>
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/misc.xml	(revision a12a8a0cc50f1936331a8dc1eb38cb0d9f395787)
++++ .idea/misc.xml	(date 1587551491566)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_9" project-jdk-name="13" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="13" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/artifacts/ProgramowaniePodstawowe_jar.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/artifacts/ProgramowaniePodstawowe_jar.xml	(date 1587478041645)
++++ .idea/artifacts/ProgramowaniePodstawowe_jar.xml	(date 1587478041645)
+@@ -0,0 +1,8 @@
++<component name="ArtifactManager">
++  <artifact type="jar" name="ProgramowaniePodstawowe:jar">
++    <output-path>$PROJECT_DIR$/../../</output-path>
++    <root id="archive" name="ProgramowaniePodstawowe.jar">
++      <element id="module-output" name="ProgramowaniePodstawowe" />
++    </root>
++  </artifact>
++</component>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .idea/workspace.xml	(revision a12a8a0cc50f1936331a8dc1eb38cb0d9f395787)
++++ .idea/workspace.xml	(date 1587802082247)
+@@ -1,27 +1,64 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="ArtifactsWorkspaceSettings">
++    <artifacts-to-build>
++      <artifact name="ProgramowaniePodstawowe:jar" />
++    </artifacts-to-build>
++  </component>
+   <component name="ChangeListManager">
+     <list default="true" id="f2ca2b59-7861-4ca7-af47-37a190abe27d" name="Default Changelist" comment="">
+-      <change afterPath="$PROJECT_DIR$/src/struktury_danych/stos_lista/Tab_Privata_protected.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/artifacts/ProgramowaniePodstawowe_jar.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/plik.csv" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/plik.sp" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/plik.txt" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/struktury_danych/dwukierunkowa_lista/DwukierunLista.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/struktury_danych/dwukierunkowa_lista/DwukierunListaElem.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/struktury_danych/kolejka_lista/KolejkaElem.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/struktury_danych/kolejka_lista/KolejkaLista.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/struktury_danych/stos_lista/StosPustyException.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/ProbyA.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/ProbyRobioneWDomu.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/ZadaniaZflimuKurs.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/ZadanieA.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/ZadanieB.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/ZadanieJar.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/okienkowy/MyFrame.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/okienkowy/Test.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanych.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanychMain.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/Danezlozone.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/Plik.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/Takson.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zadanie1Main.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zamowienie.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/poliformizm/przyklad_1/Kon.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/poliformizm/przyklad_1/MainPoliformizm.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/poliformizm/przyklad_1/Osoba.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/poliformizm/przyklad_1/Pies.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/poliformizm/przyklad_1/Ssak.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/zadania_dom/poliformizm/przyklad_1/Zwierze.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/out/production/ProgramowaniePodstawowe/struktury_danych/StosTablica.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProgramowaniePodstawowe/struktury_danych/StosTablica.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/ProgramowaniePodstawowe/META-INF/ProgramowaniePodstawowe.kotlin_module" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/ProgramowaniePodstawowe/struktury_danych/StosTablica.class" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/out/production/ProgramowaniePodstawowe/struktury_danych/Tablice.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ProgramowaniePodstawowe/struktury_danych/Tablice.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/struktury_danych/StosTablica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/struktury_danych/StosTablica.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/struktury_danych/StosTablica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/struktury_danych/kolejka_lista/StosTablica.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/struktury_danych/Tablice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/struktury_danych/Tablice.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/struktury_danych/stos_lista/StosElem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/struktury_danych/stos_lista/StosElem.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/struktury_danych/stos_lista/StosLista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/struktury_danych/stos_lista/StosLista.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/struktury_danych/stos_lista/Tab_Privata_protected.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/struktury_danych/Tab_Privata_protected.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
+   </component>
+-  <component name="FavoritesManager">
+-    <favorites_list name="ProgramowaniePodstawowe" />
+-  </component>
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+       <list>
++        <option value="Interface" />
+         <option value="Class" />
+       </list>
+     </option>
+@@ -32,24 +69,34 @@
+   <component name="ProjectId" id="1Yo240dh5U7E73sRfmHtxWp62R0" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+-    <option name="showExcludedFiles" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+   <component name="PropertiesComponent">
++    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
++    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
++    <property name="extract.method.default.visibility" value="private" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
++    <property name="project.structure.last.edited" value="Problems" />
++    <property name="project.structure.proportion" value="0.15" />
++    <property name="project.structure.side.proportion" value="0.2" />
++    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+   </component>
+   <component name="RecentsManager">
++    <key name="MoveFile.RECENT_KEYS">
++      <recent name="C:\Users\Q\Desktop\git\ProgramowaniePodstawowe\out\artifacts" />
++    </key>
+     <key name="CreateClassDialog.RecentsKey">
+       <recent name="struktury_danych" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.StosTablica">
+-    <configuration name="StosTablica" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="struktury_danych.StosTablica" />
++  <component name="RunManager" selected="Application.BazaDanychMain">
++    <configuration name="BazaDanychMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="zadania_dom.plik_CSV_zapis_odczyt.BazaDanychMain" />
+       <module name="ProgramowaniePodstawowe" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="struktury_danych.*" />
++          <option name="PATTERN" value="zadania_dom.plik_CSV_zapis_odczyt.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -57,12 +104,12 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="Tab_Privata_protected" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="struktury_danych.stos_lista.Tab_Privata_protected" />
++    <configuration name="Danezlozone" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="zadania_dom.plik_CSV_zapis_odczyt.Danezlozone" />
+       <module name="ProgramowaniePodstawowe" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="struktury_danych.stos_lista.*" />
++          <option name="PATTERN" value="zadania_dom.plik_CSV_zapis_odczyt.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -70,12 +117,38 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+-    <configuration name="stosTablica" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="struktury_danych.stosTablica" />
++    <configuration name="DwukierunLista" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="struktury_danych.dwukierunkowa_lista.DwukierunLista" />
+       <module name="ProgramowaniePodstawowe" />
+       <extension name="coverage">
+         <pattern>
+-          <option name="PATTERN" value="struktury_danych.*" />
++          <option name="PATTERN" value="struktury_danych.dwukierunkowa_lista.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="Plik" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="zadania_dom.plik_CSV_zapis_odczyt.Plik" />
++      <module name="ProgramowaniePodstawowe" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="zadania_dom.plik_CSV_zapis_odczyt.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
++    <configuration name="Zadanie1Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="zadania_dom.plik_CSV_zapis_odczyt.zadanie1.Zadanie1Main" />
++      <module name="ProgramowaniePodstawowe" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="zadania_dom.plik_CSV_zapis_odczyt.zadanie1.*" />
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+@@ -85,9 +158,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Application.StosTablica" />
+-        <item itemvalue="Application.stosTablica" />
+-        <item itemvalue="Application.Tab_Privata_protected" />
++        <item itemvalue="Application.BazaDanychMain" />
++        <item itemvalue="Application.Zadanie1Main" />
++        <item itemvalue="Application.DwukierunLista" />
++        <item itemvalue="Application.Danezlozone" />
++        <item itemvalue="Application.Plik" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -102,56 +177,232 @@
+       <option name="presentableId" value="Default" />
+       <updated>1583594431537</updated>
+     </task>
++    <task id="LOCAL-00001" summary="ProgramowaniePodstawowe">
++      <created>1583654324086</created>
++      <option name="number" value="00001" />
++      <option name="presentableId" value="LOCAL-00001" />
++      <option name="project" value="LOCAL" />
++      <updated>1583654324086</updated>
++    </task>
++    <option name="localTasksCounter" value="2" />
+     <servers />
+   </component>
++  <component name="VcsManagerConfiguration">
++    <MESSAGE value="ProgramowaniePodstawowe" />
++    <option name="LAST_COMMIT_MESSAGE" value="ProgramowaniePodstawowe" />
++  </component>
+   <component name="WindowStateProjectService">
+-    <state x="647" y="318" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583650751687">
+-      <screen x="0" y="0" width="1600" height="860" />
++    <state x="585" y="197" key="#Inspections" timestamp="1587569732782">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="585" y="197" key="#Inspections/0.0.1920.1040@0.0.1920.1040" timestamp="1587569732782" />
++    <state x="985" y="161" key="#Plugins" timestamp="1587382845424">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="985" y="161" key="#Plugins/0.0.1920.1040@0.0.1920.1040" timestamp="1587382845424" />
++    <state x="1131" y="157" key="#ProgramowaniePodstawowe.jar" timestamp="1587475289706">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="1131" y="157" key="#ProgramowaniePodstawowe.jar/0.0.1920.1040@0.0.1920.1040" timestamp="1587475289706" />
++    <state x="413" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1583917242824">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="413" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583917242824" />
++    <state x="729" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1587652850694">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="729" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1587652850694" />
++    <state x="734" y="137" key="#com.intellij.ide.util.MemberChooser" timestamp="1587630882908">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="612" y="113" key="#com.intellij.ide.util.MemberChooser/0.0.1600.860@0.0.1600.860" timestamp="1583665062870" />
++    <state x="734" y="137" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1587630882908" />
++    <state x="1118" y="339" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1587478002918">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="1118" y="339" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587478002918" />
++    <state x="776" y="385" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1583685773790">
++      <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+     <state x="647" y="318" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1600.860@0.0.1600.860" timestamp="1583650751687" />
+-    <state x="554" y="113" key="CommitChangelistDialog2" timestamp="1583594574763">
++    <state x="776" y="385" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1583685773790" />
++    <state x="742" y="415" width="435" height="216" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1587573474423">
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
++    <state x="742" y="415" width="435" height="216" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1587573474423" />
++    <state x="462" y="47" key="CommitChangelistDialog2" timestamp="1583654321244">
++      <screen x="0" y="0" width="1600" height="860" />
++    </state>
++    <state x="462" y="47" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1583654321244" />
+     <state x="554" y="113" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1583594574763" />
+-    <state width="1555" height="222" key="GridCell.Tab.0.bottom" timestamp="1583650790614">
+-      <screen x="0" y="0" width="1600" height="860" />
++    <state width="391" height="466" key="DebuggerActiveHint" timestamp="1584098994690">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state width="391" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1584098994690" />
++    <state x="739" y="273" key="FileChooserDialogImpl" timestamp="1587467142984">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="739" y="273" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1587467142984" />
++    <state width="974" height="380" key="GridCell.Tab.0.bottom" timestamp="1587733265487">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state width="1555" height="275" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583675033171" />
++    <state width="974" height="380" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587733265487" />
++    <state width="974" height="380" key="GridCell.Tab.0.center" timestamp="1587733265487">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state width="1555" height="275" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1583675033171" />
++    <state width="974" height="380" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587733265487" />
++    <state width="974" height="380" key="GridCell.Tab.0.left" timestamp="1587733265487">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state width="1555" height="275" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1583675033171" />
++    <state width="974" height="380" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587733265487" />
++    <state width="974" height="380" key="GridCell.Tab.0.right" timestamp="1587733265487">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state width="1555" height="275" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1583675033171" />
++    <state width="974" height="380" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587733265487" />
++    <state width="974" height="380" key="GridCell.Tab.1.bottom" timestamp="1587733265487">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state width="1555" height="275" key="GridCell.Tab.1.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583675033172" />
++    <state width="974" height="380" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587733265487" />
++    <state width="974" height="380" key="GridCell.Tab.1.center" timestamp="1587733265487">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state width="1555" height="275" key="GridCell.Tab.1.center/0.0.1600.860@0.0.1600.860" timestamp="1583675033172" />
++    <state width="974" height="380" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587733265487" />
++    <state width="974" height="380" key="GridCell.Tab.1.left" timestamp="1587733265487">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state width="1555" height="275" key="GridCell.Tab.1.left/0.0.1600.860@0.0.1600.860" timestamp="1583675033172" />
++    <state width="974" height="380" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587733265487" />
++    <state width="974" height="380" key="GridCell.Tab.1.right" timestamp="1587733265487">
++      <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+-    <state width="1555" height="222" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583650790614" />
+-    <state width="1875" height="347" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1583649934459" />
+-    <state width="1555" height="222" key="GridCell.Tab.0.center" timestamp="1583650790613">
+-      <screen x="0" y="0" width="1600" height="860" />
++    <state width="1555" height="275" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1583675033172" />
++    <state width="974" height="380" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587733265487" />
++    <state x="982" y="261" key="IDE.errors.dialog" timestamp="1587566709938">
++      <screen x="0" y="0" width="1920" height="1040" />
++    </state>
++    <state x="982" y="261" key="IDE.errors.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587566709938" />
++    <state x="868" y="124" key="SettingsEditor" timestamp="1587801249377">
++      <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+-    <state width="1555" height="222" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1583650790613" />
+-    <state width="1875" height="347" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1583649934459" />
+-    <state width="1555" height="222" key="GridCell.Tab.0.left" timestamp="1583650790613">
++    <state x="868" y="124" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1587801249377" />
++    <state x="459" y="208" key="Vcs.Push.Dialog.v2" timestamp="1583661546405">
+       <screen x="0" y="0" width="1600" height="860" />
+     </state>
+-    <state width="1555" height="222" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1583650790613" />
+-    <state width="1875" height="347" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1583649934459" />
+-    <state width="1555" height="222" key="GridCell.Tab.0.right" timestamp="1583650790613">
++    <state x="459" y="208" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1583661546405" />
++    <state x="551" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1583595049535" />
++    <state x="457" y="118" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1583658360510">
+       <screen x="0" y="0" width="1600" height="860" />
+     </state>
+-    <state width="1555" height="222" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1583650790613" />
+-    <state width="1875" height="347" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1583649934459" />
+-    <state width="1875" height="347" key="GridCell.Tab.1.bottom" timestamp="1583649934460">
++    <state x="457" y="118" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1600.860@0.0.1600.860" timestamp="1583658360510" />
++    <state x="450" y="200" width="849" height="604" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1583688067264">
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+-    <state width="1875" height="347" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1583649934460" />
+-    <state width="1875" height="347" key="GridCell.Tab.1.center" timestamp="1583649934460">
++    <state x="375" y="165" width="849" height="604" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1600.860@0.0.1600.860" timestamp="1583663531117" />
++    <state x="450" y="200" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1583688067264" />
++    <state x="635" y="239" key="extract.method.dialog" timestamp="1584096706671">
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+-    <state width="1875" height="347" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1583649934460" />
+-    <state width="1875" height="347" key="GridCell.Tab.1.left" timestamp="1583649934460">
++    <state x="529" y="198" key="extract.method.dialog/0.0.1600.860@0.0.1600.860" timestamp="1583672528655" />
++    <state x="635" y="239" key="extract.method.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1584096706671" />
++    <state x="373" y="280" key="refactoring.ChangeSignatureDialog" timestamp="1587639732454">
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+-    <state width="1875" height="347" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1583649934460" />
+-    <state width="1875" height="347" key="GridCell.Tab.1.right" timestamp="1583649934460">
+-      <screen x="0" y="0" width="1920" height="1040" />
++    <state x="373" y="280" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587639732454" />
++    <state x="456" y="195" key="run.anything.popup" timestamp="1583658364753">
++      <screen x="0" y="0" width="1600" height="860" />
+     </state>
+-    <state width="1875" height="347" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1583649934460" />
+-    <state x="551" y="252" key="Vcs.Push.Dialog.v2" timestamp="1583595049535">
++    <state x="456" y="195" key="run.anything.popup/0.0.1600.860@0.0.1600.860" timestamp="1583658364753" />
++    <state x="782" y="257" width="672" height="678" key="search.everywhere.popup" timestamp="1587465842319">
+       <screen x="0" y="0" width="1920" height="1040" />
+     </state>
+-    <state x="551" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1583595049535" />
++    <state x="782" y="257" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587465842319" />
++  </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/zadania_dom/ZadanieB.java</url>
++          <line>10</line>
++          <option name="timeStamp" value="31" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/zadania_dom/ZadanieA.java</url>
++          <line>33</line>
++          <option name="timeStamp" value="34" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/struktury_danych/kolejka_lista/KolejkaLista.java</url>
++          <line>48</line>
++          <option name="timeStamp" value="35" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/struktury_danych/kolejka_lista/KolejkaLista.java</url>
++          <line>52</line>
++          <option name="timeStamp" value="36" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/struktury_danych/dwukierunkowa_lista/DwukierunLista.java</url>
++          <line>118</line>
++          <option name="timeStamp" value="55" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/struktury_danych/dwukierunkowa_lista/DwukierunLista.java</url>
++          <line>147</line>
++          <option name="timeStamp" value="60" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/struktury_danych/dwukierunkowa_lista/DwukierunLista.java</url>
++          <line>122</line>
++          <option name="timeStamp" value="64" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/struktury_danych/stos_lista/StosLista.java</url>
++          <line>69</line>
++          <option name="timeStamp" value="70" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/struktury_danych/kolejka_lista/KolejkaLista.java</url>
++          <line>12</line>
++          <option name="timeStamp" value="71" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanychMain.java</url>
++          <line>65</line>
++          <option name="timeStamp" value="72" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanychMain.java</url>
++          <line>58</line>
++          <option name="timeStamp" value="73" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanychMain.java</url>
++          <line>29</line>
++          <option name="timeStamp" value="74" />
++        </line-breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
++    <watches-manager>
++      <configuration name="Application">
++        <watch expression="((DwukierunListaElem)this).value" custom="struktury_danych.dwukierunkowa_lista.DwukierunListaElem" />
++      </configuration>
++    </watches-manager>
++  </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/ProgramowaniePodstawowe$StosLista.ic" NAME="StosLista Coverage Results" MODIFIED="1586504631301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
++      <FILTER>struktury_danych.stos_lista.*</FILTER>
++    </SUITE>
++    <SUITE FILE_PATH="coverage/ProgramowaniePodstawowe$BazaDanych.ic" NAME="BazaDanych Coverage Results" MODIFIED="1587562096867" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
++      <FILTER>zadania_dom.plik_CSV_zapis_odczyt.*</FILTER>
++    </SUITE>
++    <SUITE FILE_PATH="coverage/ProgramowaniePodstawowe$ProbyA.ic" NAME="ProbyA Coverage Results" MODIFIED="1584263580156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
++      <FILTER>Zadania_dom.*</FILTER>
++    </SUITE>
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/zadania_dom/poliformizm/przyklad_1/MainPoliformizm.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/poliformizm/przyklad_1/MainPoliformizm.java	(date 1587381603721)
++++ src/zadania_dom/poliformizm/przyklad_1/MainPoliformizm.java	(date 1587381603721)
+@@ -0,0 +1,21 @@
++package zadania_dom.poliformizm.przyklad_1;
++
++public class MainPoliformizm {
++    public static void main(String[] args) {
++       Zwierze zwierze = new Pies ("Lysy");
++        zwierze.wydajDzwiek();
++//
++//        zwierze = new Kon();
++//        zwierze.wydajDzwiek();
++        Osoba osoba = new Osoba();
++        Pies pies = new Pies("Rafał");
++        Kon kon = new Kon("Glut");
++
++        osoba.przygarnijZwierze(kon);
++        osoba.jakNazywaSieTwojeZwierzatko();
++
++
++
++
++    }
++}
+Index: src/zadania_dom/poliformizm/przyklad_1/Pies.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/poliformizm/przyklad_1/Pies.java	(date 1587380533137)
++++ src/zadania_dom/poliformizm/przyklad_1/Pies.java	(date 1587380533137)
+@@ -0,0 +1,21 @@
++package zadania_dom.poliformizm.przyklad_1;
++
++public class Pies extends Ssak{
++
++
++    public Pies(String nazwa) {
++        super(nazwa);
++    }
++
++    @Override
++    public void wydajDzwiek() {
++        System.out.println("houł houł");
++
++    }
++
++    @Override
++    public void przedstawSie() {
++        System.out.println(" Jestem pies i nazywam się  "+ nazwa);
++
++    }
++}
+Index: src/zadania_dom/poliformizm/przyklad_1/Osoba.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/poliformizm/przyklad_1/Osoba.java	(date 1587380940699)
++++ src/zadania_dom/poliformizm/przyklad_1/Osoba.java	(date 1587380940699)
+@@ -0,0 +1,18 @@
++package zadania_dom.poliformizm.przyklad_1;
++
++public class Osoba {
++    private Zwierze zwierze;
++
++    public void przygarnijZwierze(Zwierze zwierze) {
++        this.zwierze = zwierze;
++    }
++
++    public void jakNazywaSieTwojeZwierzatko() {
++        if (zwierze != null) {
++            zwierze.przedstawSie();
++        } else {
++            System.out.println("Nie mam zwierzątka");
++        }
++    }
++
++}
+Index: src/zadania_dom/ZadanieJar.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/ZadanieJar.java	(date 1587551216339)
++++ src/zadania_dom/ZadanieJar.java	(date 1587551216339)
+@@ -0,0 +1,68 @@
++package zadania_dom;
++
++import struktury_danych.kolejka_lista.KolejkaLista;
++
++import java.io.BufferedWriter;
++import java.nio.charset.StandardCharsets;
++import java.nio.file.Files;
++import java.nio.file.Paths;
++import java.nio.file.StandardOpenOption;
++import java.util.ArrayList;
++import java.util.List;
++import java.util.Scanner;
++
++public class ZadanieJar {
++
++    public static void main(String[] args) {
++
++        KolejkaLista kolejka = new KolejkaLista();
++        kolejka.add(5);
++        List<Integer> lista = new ArrayList<>();
++        lista.add(10);
++        int i = 1;
++        Scanner klawiatura = new Scanner(System.in);
++
++        System.out.println("1 - dodaj do listy. 2 - odczytaj z listy. 3-dodaj do kolejki");
++        //int dana = klawiatura.nextInt();
++
++        while (true) {
++            int dana = klawiatura.nextInt();
++            switch (dana) {
++                case 1:
++                    while (i < 600000) {
++                        i++;
++                        lista.add(i);
++                    }
++                    System.out.println("Zakończyłem dodawanie");
++                   // dana = 0;
++                    break;
++                case 2:
++                    for (i = 0; i < lista.size(); i++) {
++                        System.out.println(lista.get(i));
++                    }
++                  //  dana = 0;
++                    break;
++                case 3:
++                    for(i=0; i< 200; i++) {
++                        kolejka.add(i);
++                    }
++                    kolejka.add(10);
++                    kolejka.add(22);
++                    kolejka.add(33);
++                    kolejka.add(-100);
++                    System.out.println("Zakończyłem dodawanie");
++                    break;
++                case 9:
++                    System.out.println("Koniec programu");
++                    return;
++
++            }
++        }
++
++
++
++
++    }
++
++
++}
+Index: src/zadania_dom/plik_CSV_zapis_odczyt/Takson.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/plik_CSV_zapis_odczyt/Takson.java	(date 1587541607910)
++++ src/zadania_dom/plik_CSV_zapis_odczyt/Takson.java	(date 1587541607910)
+@@ -0,0 +1,73 @@
++package zadania_dom.plik_CSV_zapis_odczyt;
++
++public class Takson {
++
++        private int nr;
++        private String rodzaj;
++        private String gatunek;
++        private int n2;
++        private int x;
++
++        public Takson(int nr, String rodzaj, String gatunek, int n2, int x) {
++            this.nr = nr;
++            this.rodzaj = rodzaj;
++            this.gatunek = gatunek;
++            this.n2 = n2;
++            this.x = x;
++        }
++
++        public Takson(int nr){
++            this.nr = nr;
++        }
++
++        public String toString(String separator) {
++            return getNr() + separator + getRodzaj() + separator +
++                    getGatunek() + separator + getN2() + separator + getX();
++        }
++
++
++        public int getNr() {
++            return nr;
++        }
++
++        public void setNr(int nr) {
++            this.nr = nr;
++        }
++
++        public String getRodzaj() {
++            return rodzaj;
++        }
++
++        public void setRodzaj(String rodzaj) {
++            this.rodzaj = rodzaj;
++        }
++
++        public String getGatunek() {
++            return gatunek;
++        }
++
++        public void setGatunek(String gatunek) {
++            this.gatunek = gatunek;
++        }
++
++        public int getN2() {
++            return n2;
++        }
++
++        public void setN2(int n2) {
++            this.n2 = n2;
++        }
++
++        public int getX() {
++            return x;
++        }
++
++        public void setX(int x) {
++            this.x = x;
++        }
++
++    }
++
++
++
++
+Index: src/zadania_dom/plik_CSV_zapis_odczyt/Plik.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/plik_CSV_zapis_odczyt/Plik.java	(date 1587561330834)
++++ src/zadania_dom/plik_CSV_zapis_odczyt/Plik.java	(date 1587561330834)
+@@ -0,0 +1,62 @@
++package zadania_dom.plik_CSV_zapis_odczyt;
++
++
++import java.io.BufferedWriter;
++import java.io.FileWriter;
++import java.io.IOException;
++import java.nio.file.Files;
++import java.nio.file.Paths;
++import java.nio.file.StandardOpenOption;
++import java.util.List;
++import java.util.Scanner;
++
++public class Plik {
++
++    public static void main(String[] args) {
++        try{
++            String path = "plik.txt";
++            FileWriter fileWriter = new FileWriter(path, true);
++            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
++
++            bufferedWriter.write("cos cos \n");
++
++        }catch (IOException e) {
++            System.out.println("Błąd na pliku");
++        }finally {
++          //  bufferedWriter.close();
++        }
++
++        try {
++            String someText = " URI www To be or not to be";
++            Files.writeString(Paths.get("plik.csv"), someText, StandardOpenOption.CREATE);
++            //CStandardOpenOption.CREATE - utwórz nowy plik jesli nie istnieje
++        } catch (IOException e) {
++            System.out.println("Błąd na pliku1111");
++            e.printStackTrace();
++        }
++
++        try {
++            String someText = "seba\n";
++            Files.writeString(Paths.get("plik.sp"), someText, StandardOpenOption.APPEND);
++            //CStandardOpenOption.CREATE - utwórz nowy plik jesli nie istnieje
++        } catch (IOException e) {
++            System.out.println("Błąd na pliku1111");
++            e.printStackTrace();
++        }
++// odczyt z pliku
++        try {
++            List<String> plik = Files.readAllLines(Paths.get("plik.csv"));
++            System.out.println( plik);
++            String content = Files.readString(Paths.get("plik.csv"));
++            System.out.println("Content:");
++            System.out.println(content);
++        } catch (IOException exception) {
++            exception.printStackTrace();
++        }
++
++    }
++
++
++
++
++}
+\ No newline at end of file
+Index: src/zadania_dom/poliformizm/przyklad_1/Zwierze.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/poliformizm/przyklad_1/Zwierze.java	(date 1587379392472)
++++ src/zadania_dom/poliformizm/przyklad_1/Zwierze.java	(date 1587379392472)
+@@ -0,0 +1,8 @@
++package zadania_dom.poliformizm.przyklad_1;
++
++public interface Zwierze {
++    void wydajDzwiek();
++
++    void przedstawSie();
++
++}
+Index: src/META-INF/MANIFEST.MF
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/META-INF/MANIFEST.MF	(date 1587478023678)
++++ src/META-INF/MANIFEST.MF	(date 1587478023678)
+@@ -0,0 +1,3 @@
++Manifest-Version: 1.0
++Main-Class: zadania_dom.ZadanieJar
++
+Index: src/zadania_dom/poliformizm/przyklad_1/Kon.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/poliformizm/przyklad_1/Kon.java	(date 1587380648292)
++++ src/zadania_dom/poliformizm/przyklad_1/Kon.java	(date 1587380648292)
+@@ -0,0 +1,21 @@
++package zadania_dom.poliformizm.przyklad_1;
++
++public class Kon extends Ssak{
++
++
++    public Kon(String nazwa) {
++        super(nazwa);
++    }
++
++
++    @Override
++    public void wydajDzwiek() {
++
++    }
++
++    @Override
++    public void przedstawSie() {
++        System.out.println("Jestem koń i nazwyam się " + nazwa);
++
++    }
++}
+Index: out/production/ProgramowaniePodstawowe/META-INF/MANIFEST.MF
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- out/production/ProgramowaniePodstawowe/META-INF/MANIFEST.MF	(date 1587478023678)
++++ out/production/ProgramowaniePodstawowe/META-INF/MANIFEST.MF	(date 1587478023678)
+@@ -0,0 +1,3 @@
++Manifest-Version: 1.0
++Main-Class: zadania_dom.ZadanieJar
++
+Index: src/zadania_dom/plik_CSV_zapis_odczyt/Danezlozone.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/plik_CSV_zapis_odczyt/Danezlozone.java	(date 1587561330848)
++++ src/zadania_dom/plik_CSV_zapis_odczyt/Danezlozone.java	(date 1587561330848)
+@@ -0,0 +1,13 @@
++package zadania_dom.plik_CSV_zapis_odczyt;
++
++import java.io.IOException;
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.nio.file.Paths;
++import java.util.ArrayList;
++import java.util.Scanner;
++
++public class Danezlozone {
++
++
++}
+Index: plik.csv
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- plik.csv	(date 1587555266645)
++++ plik.csv	(date 1587555266645)
+@@ -0,0 +1,3 @@
++ URI www To be or not to be;;
++eee;rrr;ttt
++yyy;uu;
+Index: src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanychMain.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanychMain.java	(date 1587802081413)
++++ src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanychMain.java	(date 1587802081413)
+@@ -0,0 +1,125 @@
++package zadania_dom.plik_CSV_zapis_odczyt;
++
++import zadania_dom.plik_CSV_zapis_odczyt.zadanie1.Zamowienie;
++
++import java.io.IOException;
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.nio.file.Paths;
++import java.nio.file.StandardOpenOption;
++import java.util.*;
++
++public class BazaDanychMain {
++
++    static ArrayList<BazaDanych> lista = new ArrayList();
++    //  static String sciezka;
++    //  static String naglowki;
++    //  private static String linia;
++    public static int nowyId = 0;
++    // public static BazaDanych element;
++    //  public static String imie;
++
++    public static void main(String[] args) {
++
++        String to = String.format("###-###-###");
++      //  String.format(to, )= "753-444-666";
++        System.out.println(to);
++
++
++
++        odczytDane();
++        for (BazaDanych element : lista) {
++            System.out.println(element);
++        }
++        System.out.println(lista);
++
++
++//        imie = "tomek";
++//
++        dodajDane();
++        nowyId++;
++        dodajDane();
++        nowyId++;
++
++////        for (BazaDanych element : lista) {
++////            System.out.println(element);
++////        }
++//        System.out.println(lista);
++        zapiszDane();
++
++    }
++
++
++    public static void dodajDane() {
++
++        BazaDanych nowy = new BazaDanych(nowyId);
++        Scanner skaner = new Scanner(System.in);
++        System.out.println("Podaj imie: ");
++        nowy.setImie(skaner.nextLine());
++        if(nowy.getImie().length() ==0){
++            System.out.println("OKOKOKOK");
++        }
++        if (nowy.getImie().equals("")) {
++            nowy.setImie("0");
++        }
++
++                Integer.parseInt(nowy.getImie());
++     //   System.out.println(Integer.parseInt(nowy.getImie()));  //Sprawdzenie czy jest text
++
++        System.out.println("Podaj nazwisko: ");
++        nowy.setNazwisko(skaner.nextLine());
++        System.out.println("Podaj wiek: ");
++        try {
++            nowy.setWiek(skaner.nextInt());
++        } catch (InputMismatchException e) {
++            System.out.println("Podaj liczbę !!");
++        }
++
++        lista.add(nowy);
++    }
++
++    private static void zapiszDane() {
++
++        try {
++            Files.writeString(Paths.get("plik.sp"), lista.toString(), StandardOpenOption.CREATE); //, StandardOpenOption.APPEND);
++            //CStandardOpenOption.CREATE - utwórz nowy plik jesli nie istnieje
++
++        } catch (IOException e) {
++            System.out.println("Błąd na pliku");
++            e.printStackTrace();
++        }
++    }
++
++    private static void odczytDane() {
++        try {
++            //     List<String> plik = Files.readAllLines(Paths.get("plik.sp"));
++            List<String> odczyt;
++            // String odczyt;
++            odczyt = Files.readAllLines(Paths.get("plik.sp"));
++            String odczytana = odczyt.toString();
++            odczytana = odczytana.replace("[", "");
++            odczytana = odczytana.replace("]", "");
++
++            String[] rozdzielNaPliki = odczytana.split(",");
++            int j = 0;
++            for (int i = 1; rozdzielNaPliki.length >= i; i++, j++) {
++                rozdzielNaPliki[j] = rozdzielNaPliki[j].trim();
++                String[] rozdzielNaDane = rozdzielNaPliki[j].split(" ");
++                BazaDanych bazaDanych = new BazaDanych(
++                        Integer.parseInt(rozdzielNaDane[0]), //ID
++                        rozdzielNaDane[1], // imie
++                        rozdzielNaDane[2], // nazwisko
++                        Integer.parseInt(rozdzielNaDane[3]) // wiek
++                );
++                System.out.println("bazadanych" + bazaDanych);
++                lista.add(bazaDanych);
++            }
++        } catch (IOException exception) {
++            System.out.println("Brak pliku!");
++        } catch (NumberFormatException e) {
++            System.out.println("Plik pusty lub nieprawidłowe dane");
++        }
++
++
++    }
++}
+\ No newline at end of file
+Index: src/zadania_dom/ZadaniaZflimuKurs.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/ZadaniaZflimuKurs.java	(date 1587378777870)
++++ src/zadania_dom/ZadaniaZflimuKurs.java	(date 1587378777870)
+@@ -0,0 +1,143 @@
++package zadania_dom;
++
++public class ZadaniaZflimuKurs {
++
++    public void sumujElementyTablicy(int[] tab) {
++        int suma = 0;
++        for (int i = tab.length - 1; i >= 0; --i) {
++            suma += tab[i];
++        }
++        System.out.println(suma);
++    }
++
++    public int sumujTablicaDwuWymiarowa(int[][] tab1) {
++        int suma = 0, suma1 = 0;
++        for (int i = tab1[0].length - 1; i >= 0; --i) {
++            suma += tab1[0][i];
++        }
++        for (int i = tab1[1].length - 1; i >= 0; --i) {
++            suma1 += tab1[1][i];
++        }
++        return suma;
++
++
++    }
++
++    public static void main(String[] args) {
++        ProbyA tablica = new ProbyA();
++        int tab[] = {2, 4, 6, 7, 8};
++        tablica.sumujElementyTablicy(tab);
++        int tab1[][] = {{1, 1, 1}, {1, 1, 1, 1, 0, 0}};
++        int suma = tablica.sumujTablicaDwuWymiarowa(tab1);
++        System.out.println(suma);
++        System.out.println("...................................................");
++
++        int liczba = 8;
++        liczba %= 2;
++        if (liczba == 0) {
++            System.out.println("liczba podzielna ");
++        } else {
++            System.out.printf("Liczba nie podzielna ");
++        }
++        System.out.println("............................................................");
++
++        for (int a = 0; a < 31; a++) {
++            System.out.print(a + " ");
++        }
++        System.out.println();
++        for (int a = 30; a >= 0; a--) {
++            System.out.print(a + " ");
++        }
++        System.out.println();
++        for (int a = 0; a < 31; a++) {
++            if (a % 2 == 0) {
++                System.out.print(a + " ");
++            }
++        }
++        System.out.println();
++        int a = -20;
++        int b = 10;
++        for (; a <= b; a++) {
++            System.out.print(a + " ");
++        }
++        System.out.println();
++        int tabl[] = new int[10];
++        for (a = 0; a < tabl.length; a++) {
++            tabl[a] = a * 2;
++        }
++        // System.out.println();
++        for (a = tabl.length - 1; a >= 0; a--) {
++            System.out.print(tabl[a] + " ");
++        }
++        System.out.println("............ ZADANIE SUMUJ TABLICE ...............................");
++        int sumuj = 0;
++        System.out.println();
++        for (a = 0; a < tabl.length; a++) {
++            sumuj += tabl[a];
++
++        }
++        System.out.println(sumuj);
++        System.out.println("............ ZADANIE SILNIA .....................................");
++        a = 5;
++        sumuj = 1;
++        for (int q = 1; q <= a; q++) {
++            sumuj *= q;
++        }
++        System.out.println("silnia: " + sumuj);
++        System.out.println("............ ZADANIE TRÓJKĄT ....................................");
++        a = 10;
++        for (int q = 0; q <= a; q++) {
++            for (int w = 0; w < q; w++) {
++                System.out.print("*");
++            }
++            System.out.println();
++        }
++        System.out.println("............ ZADANIE TRÓJKĄT ODWROTNY ...........................");
++        for (int q = 0; q <= a; q++) {
++            for (int e = q; e < a; e++) {
++                System.out.print(" ");
++            }
++            for (int w = 0; w < q; w++) {
++                System.out.print("*");
++            }
++            System.out.println();
++        }
++        System.out.println("............ ZADANIE CHOINKA ...................................");
++        b = 8;
++        for (int i = 0; i <= b; i++) {
++            for (int j = i; j < b; j++) {
++                System.out.print(" ");
++            }
++            for (int w = 0; w < i; w++) {
++                System.out.print("*");
++                if (w > 0) {
++                    System.out.print("*");
++                }
++            }
++            System.out.println();
++
++        }
++        System.out.println();
++        System.out.println("*****************************************************************");
++        System.out.println("............ ZADANIE 3 STRING ...................................");
++        String imie = "Sebastian";
++        String nazwisko = "Piwowarski";
++        String imieNazwisko = "Sebastian Piwowarski";
++        System.out.println("Imię " + imie + " zawiera " + imie.length() + " zanków.");
++        System.out.println("Nazwisko " + nazwisko + " zawiera " + nazwisko.length() + " znaków.");
++        System.out.println("Imię i Nzawisko " + imieNazwisko + " zawierają " + (imieNazwisko.length() - 1) + " znaków.");
++        System.out.println("Imię " + imie + " jest równe Alicja " + imie.matches("Alicja"));
++        System.out.println("Nazwisko z wielkich liter: " + nazwisko.toUpperCase());
++        System.out.println("Zmiana liter z a na e w Nazwisku: " + nazwisko.replace('a', 'e'));
++        System.out.println();
++        String potrafie = "Potrafię coraz więcej";
++        b = potrafie.length() - 1;
++        for (a = 0; a <= potrafie.length(); a++, b-- ) {
++            System.out.println(potrafie.charAt(a) + "    " + potrafie.charAt(b));
++        }
++
++
++    }
++
++
++}
+Index: src/zadania_dom/poliformizm/przyklad_1/Ssak.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/poliformizm/przyklad_1/Ssak.java	(date 1587380507102)
++++ src/zadania_dom/poliformizm/przyklad_1/Ssak.java	(date 1587380507102)
+@@ -0,0 +1,11 @@
++package zadania_dom.poliformizm.przyklad_1;
++
++public abstract class Ssak implements Zwierze{
++
++    protected String nazwa;
++
++    public Ssak(String nazwa){
++        this.nazwa = nazwa;
++    }
++
++}
+Index: src/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zadanie1Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zadanie1Main.java	(date 1587572811447)
++++ src/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zadanie1Main.java	(date 1587572811447)
+@@ -0,0 +1,63 @@
++package zadania_dom.plik_CSV_zapis_odczyt.zadanie1;
++
++import java.util.ArrayList;
++import java.util.List;
++
++public class Zadanie1Main {
++    public static void main(String[] args) {
++
++        Zamowienie zamowienie1 = new Zamowienie(12.343f, 34, "pepsi");
++        Zamowienie zamowienie2 = new Zamowienie(15.3f, 34, "pepsi");
++        Zamowienie zamowienie3 = new Zamowienie(1.4f, 34, "pepsi");
++        Zamowienie zamowienie4 = new Zamowienie(12.99f, 34, "pepsi");
++
++
++        List<Zamowienie> listaZamowien = new ArrayList<>();
++        //dodawanie do listy elementu
++        listaZamowien.add(zamowienie1);
++        listaZamowien.add(zamowienie2);
++        listaZamowien.add(zamowienie3);
++        //petla for listy zamowien
++        for (Zamowienie element : listaZamowien) {
++            element.pobierzCene();
++            System.out.println(element);
++        }
++        System.out.println(listaZamowien);
++
++
++        System.out.println(new Zamowienie(43, 33, "ptasia grypa"));
++
++        float cena1 = zamowienie1.cena;
++        float cena2 = zamowienie2.pobierzCene();
++        float cena3 = zamowienie3.pobierzCene();
++        float suma = cena1 + cena2 + cena3;
++        System.out.println("\n\n===============================================");
++
++        StringBuilder sb = new StringBuilder();
++        sb.append(zamowienie1.pobierzCene() + " ");
++        // sb.append(cena1 + " ");
++        sb.append(cena2 + " ");
++        sb.append("Rocks").append("!").append(0);
++        System.out.println(sb.toString());  // value => "Java Rocks!0"
++
++
++        StringBuilder builder = new StringBuilder();
++        //  builder.append("Kwota  \n" + zamowienie1.cena ).append("\n" + (cena2 + cena2)).append("\n" + cena3).append(" \n zł");
++        System.out.println(builder);
++        // System.out.println(builder.toString());
++
++        System.out.println("\n\n===============================================");
++
++        //   System.out.println(zamowienie1.cena);
++        System.out.println(zamowienie2.pobierzCene());
++        System.out.println(zamowienie3.pobierzCene());
++        System.out.println("Suma:");
++        //  System.out.println(cena1 + cena2 + cena3);
++
++        System.out.println("Suma za zakupy " + suma + " zł");
++
++        System.out.println("Suma: " + (zamowienie1.pobierzCene() + zamowienie2.pobierzCene() + zamowienie3.cena));
++        System.out.println("Sume: " + zamowienie1.pobierzCene() + zamowienie1.cena + zamowienie1.cena + " zł");
++
++    }
++}
+\ No newline at end of file
+Index: src/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zamowienie.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zamowienie.java	(date 1587573492888)
++++ src/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zamowienie.java	(date 1587573492888)
+@@ -0,0 +1,38 @@
++package zadania_dom.plik_CSV_zapis_odczyt.zadanie1;
++
++public class Zamowienie {
++
++    public int numer;
++    //int numer;
++    float cena;
++    String nazwa;
++
++    public Zamowienie (){
++        cena = 456.44f; nazwa = "er"; numer = 1;
++
++    }
++
++    public Zamowienie(float przypiszCene, int przypisanyNumer, String przypisanaNazwa) {
++        cena = przypiszCene;
++        numer = przypisanyNumer;
++        nazwa = przypisanaNazwa;
++    }
++
++    public float pobierzCene() {
++        // return cena + numer;
++        return cena ;
++    }
++    public int pobierzNumer(){
++        return numer;
++    }
++
++    public String toString() {
++       // System.out.println("tttttttttt");
++        return nazwa + " " + cena + " " + numer;
++    }
++
++
++
++}
++
++
+Index: src/zadania_dom/ProbyA.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/ProbyA.java	(date 1587378777775)
++++ src/zadania_dom/ProbyA.java	(date 1587378777775)
+@@ -0,0 +1,124 @@
++package zadania_dom;
++
++
++public class ProbyA {
++
++
++    public void sumujElementyTablicy(int[] tab) {
++        int suma = 0;
++        for (int i = tab.length - 1; i >= 0; --i) {
++            suma += tab[i];
++        }
++        System.out.println(suma);
++    }
++
++    public int sumujTablicaDwuWymiarowa(int[][] tab1) {
++        int suma = 0, suma1 = 0;
++        for (int i = tab1[0].length - 1; i >= 0; --i) {
++            suma += tab1[0][i];
++        }
++        for (int i = tab1[1].length - 1; i >= 0; --i) {
++            suma1 += tab1[1][i];
++        }
++        return suma;
++
++
++    }
++
++    public static void main(String[] args) {
++        ProbyA tablica = new ProbyA();
++        int tab[] = {2, 4, 6, 7, 8};
++        tablica.sumujElementyTablicy(tab);
++        int tab1[][] = {{1, 1, 1}, {1, 1, 1, 1, 0, 0}};
++        int suma = tablica.sumujTablicaDwuWymiarowa(tab1);
++        System.out.println(suma);
++        System.out.println("...................................................");
++
++        int liczba = 8;
++        liczba %= 2;
++        if (liczba == 0) {
++            System.out.println("liczba podzielna ");
++        } else {
++            System.out.printf("Liczba nie podzielna ");
++        }
++        System.out.println("............................................................");
++
++        for (int a = 0; a < 31; a++) {
++            System.out.print(a + " ");
++        }
++        System.out.println();
++        for (int a = 30; a >= 0; a--) {
++            System.out.print(a + " ");
++        }
++        System.out.println();
++        for (int a = 0; a < 31; a++) {
++            if (a % 2 == 0) {
++                System.out.print(a + " ");
++            }
++        }
++        System.out.println();
++        int a = -20;
++        int b = 10;
++        for (; a <= b; a++) {
++            System.out.print(a + " ");
++        }
++        System.out.println();
++        int tabl[] = new int[10];
++        for (a = 0; a < tabl.length; a++) {
++            tabl[a] = a * 2;
++        }
++        // System.out.println();
++        for (a = tabl.length - 1; a >= 0; a--) {
++            System.out.print(tabl[a] + " ");
++        }
++        int sumuj = 0;
++        System.out.println();
++        for (a = 0; a < tabl.length; a++) {
++            sumuj += tabl[a];
++
++        }
++        System.out.println(sumuj);
++        a = 5;
++        sumuj = 1;
++        for (int q = 1; q <= a; q++) {
++            sumuj *= q;
++        }
++        System.out.println("silnia: " + sumuj);
++
++        a = 10;
++        for (int q = 0; q <= a; q++) {
++            for (int w = 0; w < q; w++) {
++                System.out.print("*");
++            }
++            System.out.println();
++        }
++
++        for (int q = 0; q <= a; q++) {
++            for (int e = q; e < a; e++) {
++                System.out.print(" ");
++            }
++            for (int w = 0; w < q; w++) {
++                System.out.print("*");
++            }
++            System.out.println();
++        }
++        b = 8;
++        for (int i = 0; i <= b; i++) {
++            for (int j = i; j < b; j++) {
++                System.out.print(" ");
++            }
++            for (int w = 0; w < i; w++) {
++                System.out.print("*");
++                if (w > 0) {
++                    System.out.print("*");
++                }
++            }
++            System.out.println();
++        }
++
++    }
++
++
++}
++
++
+Index: src/zadania_dom/ProbyRobioneWDomu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/ProbyRobioneWDomu.java	(date 1587378777834)
++++ src/zadania_dom/ProbyRobioneWDomu.java	(date 1587378777834)
+@@ -0,0 +1,60 @@
++package zadania_dom;
++
++public class ProbyRobioneWDomu {
++    public static void main(String[] args) {
++        int c = 10, a, b;
++
++        for (a = 1; a <= c; a++) {
++            for (b = 1; b <= c; b++) {
++                System.out.print(a * b + "\t");
++            }
++            System.out.println();
++        }
++        System.out.println("*****************************************************************************************");
++        a = b = 1;
++        do {
++            do {
++                System.out.print(a * b + "\t");
++                b++;
++            } while (b <= c);
++            System.out.println();
++            a++;
++            b = 1;
++        } while (a <= c);
++        System.out.println("*****************************************************************************************");
++        int n = 10, i;
++        int tablica[] = new int[n];
++        for (i = 0; i < tablica.length; i++) {
++            tablica[i] = n - 1 - i;
++            System.out.println("tablica [ " + i + " ] = " + tablica[i]);
++        }
++        System.out.println("*****************************************************************************************");
++        n = 10;
++        int suma = 0;
++        int macierzy[][] = new int[n][n];
++        //wypisanie poprzekatnej liczby 1
++        for (a = 0; a < macierzy.length; a++) {
++            for (b = 0; b < macierzy.length; b++) {
++                if (n == a + b + 1) {
++                    macierzy[a][b] = a;
++                } else {
++                    macierzy[a][b] = 0;
++                }
++
++            }
++        }
++        //wyswietlenietablicy
++        for (a = 0; a < macierzy.length; a++) {
++            for (b = 0; b < macierzy.length; b++) {
++                suma = suma + macierzy[a][b];
++                System.out.print(macierzy[a][b] + "\t");
++            }
++            System.out.println();
++
++        }
++        System.out.println("suma liczb: " + suma);
++
++    }
++
++
++}
+Index: src/zadania_dom/ZadanieA.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/ZadanieA.java	(date 1587378777668)
++++ src/zadania_dom/ZadanieA.java	(date 1587378777668)
+@@ -0,0 +1,46 @@
++package zadania_dom;
++
++import struktury_danych.stos_lista.StosPustyException;
++
++public class ZadanieA {
++
++
++    private ZadanieB qw;
++
++
++    public void zapis(int value) {
++      // this.qw = new ZadanieB(value, this.qw);
++        // inaczej
++       // System.out.println(this.qw);
++         ZadanieB elem = new ZadanieB(value, this.qw );
++         this.qw = elem;
++      //  System.out.println(this.qw = elem);
++    }
++
++    public int pop() {  //usunięcie	ze	szczytu	stosu elentu
++        if (qw == null) {  // jeżeli stos pusty to wyrzuc wyjątek
++            throw new StosPustyException(); //throw wyzuc wyjatek
++        }
++        int value = qw.getValue();
++        this.qw = qw.getPrev();
++        return value;
++
++    }
++
++
++    public static void main(String[] args) {
++        ZadanieA st = new ZadanieA();
++        st.zapis(1);
++        st.zapis(4);
++        st.zapis(8);
++        st.zapis(12);
++
++
++        st.pop();
++        st.pop();
++        st.pop();
++
++
++
++    }
++}
+Index: src/zadania_dom/ZadanieB.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/ZadanieB.java	(date 1587378777903)
++++ src/zadania_dom/ZadanieB.java	(date 1587378777903)
+@@ -0,0 +1,28 @@
++package zadania_dom;
++
++public class ZadanieB {
++
++    private int value;
++    private ZadanieB prev;
++
++public ZadanieB(int value, ZadanieB prev){
++    this.value = value;
++    this.prev = prev;
++}
++
++    public int getValue() {
++        return value;
++    }
++
++    public void setValue(int value) {
++        this.value = value;
++    }
++
++    public ZadanieB getPrev() {
++        return prev;
++    }
++
++    public void setPrev(ZadanieB prev) {
++        this.prev = prev;
++    }
++}
+Index: src/struktury_danych/Tablice.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/struktury_danych/Tablice.java	(revision a12a8a0cc50f1936331a8dc1eb38cb0d9f395787)
++++ src/struktury_danych/Tablice.java	(date 1583688286370)
+@@ -7,7 +7,7 @@
+         System.out.println(tab.length - 1 + " tab.length -1" + " i " + "tab.length bez -1 " + tab.length);
+         for (int i = tab.length - 1; i >= 0; i--) {
+             if (i % 2 == 0) {
+-                System.out.print(tab[i] + ",");
++                System.out.print(tab[i] + " , ");
+             }
+         }
+         System.out.println();
+@@ -43,6 +43,7 @@
+         tablice.LiczbyOdKoncaNaParzystychIndeksach(tab);
+         tablice.LiczbyPodzienePrzezTrzy(tab);
+         tablice.LiczbySumaLiczb(tab);
++
+     }
+ 
+ 
+Index: src/struktury_danych/stos_lista/Tab_Privata_protected.java
+===================================================================
+--- src/struktury_danych/stos_lista/Tab_Privata_protected.java	(revision a12a8a0cc50f1936331a8dc1eb38cb0d9f395787)
++++ src/struktury_danych/Tab_Privata_protected.java	(date 1583659962000)
+@@ -1,4 +1,4 @@
+-package struktury_danych.stos_lista;
++package struktury_danych;
+ 
+ public class Tab_Privata_protected {
+ 
+Index: src/struktury_danych/stos_lista/StosLista.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/struktury_danych/stos_lista/StosLista.java	(revision a12a8a0cc50f1936331a8dc1eb38cb0d9f395787)
++++ src/struktury_danych/stos_lista/StosLista.java	(date 1586505058054)
+@@ -1,15 +1,81 @@
+ package struktury_danych.stos_lista;
+ 
++import javax.crypto.spec.PSource;
++
+ public class StosLista {
+ 
+     private StosElem top;
+ 
+-    public StosLista(){
++    public StosLista() {
+         top = null;
+-            }
++
++    }
++
++    public void push(int value) {  //dodanie na	szczyt stosu nowego
++
++        this.top = new StosElem(value, this.top);
++                    // inaczej
++        // StosElem elem = new StosElem(value, this.top );
++        //    this.top = elem;
++    }
++
++    public int pop() {  //usunięcie	ze	szczytu	stosu elentu
++        if (top == null) {  // jeżeli stos pusty to wyrzuc wyjątek
++            throw new StosPustyException(); //throw wyzuc wyjatek
++        }
++        int value = top.getValue();
++        this.top = top.getPrev();
++        return value;
++
++    }
++
++    public int peek() {  //zwraca element ze szczytu
++        if (top == null) {  // jeżeli stos pusty to wyrzuc wyjątek
++            throw new StosPustyException();
++        }
++        return top.getValue();
++    }
++
++    public boolean isEmpty() {  //zwraca true, jeżeli stos nie zawiera	żadnego	elementu
++        return top == null;
++    }
++
++    public void show() {
++        StosElem tmp = top;
++        while (tmp != null) {
++            System.out.print(tmp.getValue() + " ");
++            tmp = tmp.getPrev();
++        }
++        System.out.println();
++    }
++
++    public static void main(String[] args) {
++
++        StosLista stos = new StosLista();
++        stos.push(9);
++        stos.push(100);
++        stos.push(3);
++
++        stos.show();
++        System.out.println("Pop:" + stos.pop());
++        System.out.println("Peek:" + stos.peek());
++        System.out.println("Pop: " + stos.pop());
++        System.out.println("Peek:" + stos.peek());
++        System.out.println("Pop: " + stos.pop());
++
++        System.out.println("isEmpty: " + stos.isEmpty());
++
++        try {
++            stos.pop();
++        }catch(StosPustyException wyjatek){
++            System.out.println(wyjatek.getMessage());
++            wyjatek.printStackTrace(); // wyswietlenie longu wyjatku
++        }finally{  //zawsze sie wykona czy jest wyjetek czy nie
++            System.out.println("Zamykamy sprawe. Zawsze się wykonam!");
++        }
++        System.out.println("Cokolwiek !!!!");
+ 
+-            public void push(int value){
+-         //   StosElem elem = new StosElem(int value, )
+-            }
++    }
+ 
+-}// dodawany komentarz
++
++}
+Index: src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanych.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanych.java	(date 1587708115804)
++++ src/zadania_dom/plik_CSV_zapis_odczyt/BazaDanych.java	(date 1587708115804)
+@@ -0,0 +1,61 @@
++package zadania_dom.plik_CSV_zapis_odczyt;
++
++public class BazaDanych {
++
++    private int ID;
++    private String imie;
++    private String nazwisko;
++    private int wiek;
++
++
++    BazaDanych(int ID) {
++        this.ID = ID;
++    }
++
++    BazaDanych(int ID, String imie, String nazwisko, int wiek) {
++        this.ID = ID;
++        this.imie = imie;
++        this.nazwisko = nazwisko;
++        this.wiek = wiek;
++
++    }
++
++    public String toString() {
++        return ID+ " " + imie + " " + nazwisko + " " + wiek;
++       // return getID()+ " " + getImie() + " " + getNazwisko() + " " + getWiek();
++    }
++
++    public int getID() {
++        return ID;
++    }
++
++    public void setID(int ID) {
++        this.ID = ID;
++    }
++
++    public String getImie() {
++        return imie;
++    }
++
++    public void setImie(String imie) {
++        this.imie = imie;
++    }
++
++    public String getNazwisko() {
++        return nazwisko;
++    }
++
++    public void setNazwisko(String nazwisko) {
++        this.nazwisko = nazwisko;
++    }
++
++    public int getWiek() {
++        return wiek;
++    }
++
++    public void setWiek(int wiek) {
++        this.wiek = wiek;
++    }
++
++
++}
+diff --git plik.txt plik.txt
+new file mode 100644
+diff --git plik.sp plik.sp
+new file mode 100644
+diff --git out/production/ProgramowaniePodstawowe/META-INF/ProgramowaniePodstawowe.kotlin_module out/production/ProgramowaniePodstawowe/META-INF/ProgramowaniePodstawowe.kotlin_module
+deleted file mode 100644
+index a49347afef10a9b5f95305e1058ba36adec7d6dd..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/StosTablica.class out/production/ProgramowaniePodstawowe/struktury_danych/kolejka_lista/StosTablica.class
+rename from out/production/ProgramowaniePodstawowe/struktury_danych/StosTablica.class
+rename to out/production/ProgramowaniePodstawowe/struktury_danych/kolejka_lista/StosTablica.class
+index 07e914cdbb43e4d23ffad8d2a13aad8905b28071..bdf4727ddbfb06aac32ac1096cdc1303d92ac50c
+GIT binary patch
+literal 1944
+zc$|%uZBrXn6vzKJS=c09o)QZd6f4peLQAY#S_{_NSS)QQ)F2gbroALPuw=8F$=)!7
+zpTw8G^NnwGS~^2JegHp|<Nt1!u!ZP!GIMv&x##@udD@%5|2g^#z)k#=K>|q=hJ_yV
+z3JmVaeOYj&w^LZz-m@!8pm)LX9Cb$^IW@hWMha;Y84KrN3FHISY}Hh&dGM?%y@Seb
+zq2{~xUQIr8oj}P#S^2@5+;*Lcq`#8e0*S394e7TqfI+SF8v<e}LtRz}krObcmZsOW
+z;=G07P|;`wyJ@_S3noS_jNyZ~A}t>T%C3{;w;1pFQn=&zh1I6xsj_O?vOceI;}$-`
+zMcOs=nM`LX%OXrz_ym&zBXwD`i@sNp>Zzl4`Nj-96_ChyO0nY<xjQ6Y#uXD&7N(IG
+z$aOhYz-(yA^)%!xqMhYc3)gg5M#HviSqMyI*^~*rb=|^e_?#FgxL<FmgD~pNERwjP
+zqn^{)%`UMKR`jd3z(C3I?8mM8w%ycype9@LE7Dz;O-IX-(onk&6TMn`_kQX#0_SHs
+z_v}lz#b@u1t=4p9`^rjIYRj^5Os`9a6&Rk{>Q(~o%jOPG&vn@rI2XicC{y-Z&5FI~
+zXzpMvoLTKk)ji)=OhPu6ZMExHgMnUfwjSb<iIOhavcTlYDUP@A*X-!9cJCKuMfpuu
+z`j>daBEvTHf%K}b9ZZ&dzt(EZpN;yz9M=vSb{F$_-tDh$e)=q;C|$SgD0@DI6&9N_
+zeEXtE;R&Z>m4g!sWp1oS8$YmG(b!NHu$DZ}ZWdh`1a@HJM}bT4l%I)Bf${%0<*{vJ
+ze9Wm$@T*Gj$15Uy<A=^?ij&RHo9j(VPeKb|DE|r~KlUc`5@tT}5`BM!F1NU5VT5i5
+z(nMtlvG64|!)-_0#yk+dEpU&Qh`uZ${6l(at8D%Sxf?IgXFT5|eQf1~pJ`jrKNsU>
+zJKQY3inzQrBJLxmpsjKp?xs;CcXnay_fy~zf=6TETm&AXbPT@J0T)6U=pnf81l1cV
+z$3u+OHt586t>gR!t@U0ejEaES(}al_Arlb<>vl}I9uY!s<N0a#%Q1Je<IbxoaxX^i
+z{n|b8D@@}z7)eb@#wgP<N`FN8I!q~H-4*QeU3?P(-_TJPt@;|Njnpd)m1a_hcyFdh
+zF9w%CF*0+A505x-IK-u{;>;0d-`*|6#7~b{H!Yq_M4q()lS*@^A2-;tIsWO~!W9NS
+z$AIs%Vry(#1@~f&tx_uTnZ_2rWm3GPX{niu_>Rv}&f)`VABXE|xPBk5YgiBaA@CF%
+H^uF*fpxS`2
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/dwukierunkowa_lista/DwukierunListaElem.class out/production/ProgramowaniePodstawowe/struktury_danych/dwukierunkowa_lista/DwukierunListaElem.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..05f9c0783384c6c252facdfb9b4a4e3b8ee901a6
+GIT binary patch
+literal 1252
+zc$}qDOK;Oa5dJm~J8|7S`=BiaQmEv(h#V`_(hCnMQdE#Y5uB<`vTEJ9PUS~R{}Tt0
+zsE|1D1Nc#h*^TRhaWCOAGduS8nA!dL>-!G?yVy36LtaP0L=hT8?UYY>$K~E}=k?%J
+z3_}KO-|?LAfFW<S`(>0+)?t`ffXT2Mgnl#*BmeSf#J$VmNoRBsjUC}f-gt7sk6b4R
+zdFRD-uP2W$U2(=xoN_l346G|DD<-O_F%&%UktCn?=H%UzWDOHdMRx9sDJ84h?o)a`
+z8IfMK=Xl~UIvWW89Ur*VY4j#T?)JIw$aCB*geOkG@XYGYZAFTfjz!p?4NBYVQX@zj
+zI(<7-<L+7QxmAcKxaQfn{>!X1^hT{rQqC&l?IiMt;*}$pvidLZiF_|;(bjYHp7Ipw
+zT~L*i_o;GI<r3)1u|#p1PVcEN|6j7df!P~Z&~0{wMH%W}6l#Uy3L$_p3NR=xpaOZZ
+z6|Aan3XeOAT~<<;DV4QY<%4|Ml&d!?kN*;A5H)?KSR;WtQ8yI%gBdI#ug2uElH=s4
+zUdKi((^0ZO(f$hkQ$nt(=CUH3fr~LA!`);P2k|B}<?qItp}K2?S^r~REwQ8}^KRl^
+zhLOe3DI=SiM()$BX(Kyy6KNwY!ff4QL|(KMZe<#&r;Ti98rjM=QcoLc6UM&9NHaF_
+IP+=bZ20MA#SO5S3
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/dwukierunkowa_lista/DwukierunLista.class out/production/ProgramowaniePodstawowe/struktury_danych/dwukierunkowa_lista/DwukierunLista.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..bd7c1930c9d3536e080498f5885c7f00d4ab4595
+GIT binary patch
+literal 3118
+zc$}S8ZBr9h7(JU8Hi3;qKoofq6ciE=6)j5e4G={GT4S+dD=x_jOO|X*Hc+PT?LX)z
+z`vY3Obf#lR<BZPqW1Z=L=!gCfM|<ww4d8%IWi)s1K6~$Z&U5a$4}ZUY{wIJz6szHb
+zUqwJe5LF7Ii~6$OZ|S-D{_As#M%qzOHEiZg=bQq6ch7VfA%s;_Yp8*yV4&y}N?E5=
+zSe?!2xz+SSe`ckWHH|_km$g^)S<5UsdjD7@mK3iF0+wDR@R{Tec3-lLrG#LyOGB-o
+z5PVQzyc)Yvr=ng%1NJBw+##}p(7fSH>sHB-^-c)fy+WIPq}@HyGc5x9H8i6|fm$@2
+zDdP*4GTgo6T3pCB4F@WaHwwnGh;?W<h(nCcSJEW9dv=^hAa-duTtTd4>DJIAstXmp
+z!mBB6TthGVxX>(KTFN`CQjD1}`f*IfaSbOh@RnCnt3^ks=eJ9wxhE;Vn0Eh-f|+wt
+zPQlQZ5_L4(DGeWCP{H0MJ!_2GxwP)wHk}2|NHgaYxtAg*Hvv0Dm?!x&7*dhYFpRSb
+z>bJqC6Y}CsKx_pNDxbl54HtyVRk_m2iBkPy7}YQ)L{RliCaDWMg)pw+vJ{4~ao1xZ
+zOlY_&5CX*odqo728YV@cMg(pe%SNF{>jXya3?H>gGiOYdmgbDYEq%^nq%LWvb!%EL
+znBv_F2Al<xrJvf#*(MZ3QjVU^PU?9NF1YOaSDE1DmGk4wVMu!i#e=Wmylq*sDi$c_
+zNqHs1dBe!AhdFn{fhFC{DQN7zyPdN9t{3K6K>aqKscF`>jKwVPeRaw%71GAIDOlFO
+zUB^+elb#x}ZHF@G`ANfBurtNlDm<vhJQh@#!aR!#IyaJ-xn(<Rc)46Zjq7R0F3_=$
+zHrv2k=z?C+a~aDhb|!5*TgoT4l7835TdR3vo8_C!cDrVxXDh_0ZdobQF%ltI3Vcet
+z0&OCfGYX?@hee~P!dB4rzbLDCsG#lrOL_M0Vsy}^K3+Z_|FLDtS&e+waK^R|1yg*x
+zhyZ6mZR{D8SWKCD3iT->kL8Bz9CyJlHwCzP7b3X9H_hFGk8zVvMYIhMZh}wots(XV
+zk(b!Thx!s~U=0EPZ;bmTW|dqM-GtTPVWs#B!dG`e!0;xzunL<D!@zxkS4Q;g3+%qr
+z@(hhrBG6YxQ=j{#HP*)hMDn3PQ=p7?@#y;n2e_tlsxm~+a%i9GYboQ%+M9pfa5G;X
+zuTvZ$Jzx)2Y!rVD&_pgB91mkZ%WcL0TG(4!aSm-5WgEYOcJ_o0e1cBQpbN7&BFj7J
+z^7hITvs+xli-u1z&6$tr*KwON_=$UxQH@dy86xn#X2(^roBunwWvn6x9&w2{l>s3`
+zGi8{Jl@a?H(O9h4JHR#U6N>awn%;^uz5KLMVH;GAafF#S$^&d=qwm5o&W?*#FWI-d
+zY1Y{fc<jT7NzOjWGz{M>w31~5Ki#2dF3X3~d_add4vIb;b0_Vj=h`C_Q%I?K!x)WH
+ztwE}D8uiq7KZdC7u;kL{f_Yp*JPVgg$~Dw091xzF**3jeNzX~AYY^2-AK8-rBEd(P
+zew69Qn11{N(%)TAKknUxTK8!Do(LPsswLnxp2E~NmntRK@$?mZ_C8E?8_X0jr{9lx
+zb-e-n<jHhG5KPAZLf0QS8Yk*=x)EiZ7D?j2qG}B_47VrO-u%NAWt`iv(n0D0)*d9+
+zFg~YG@6kH5I0T&rOVd!9O&Xr?=mcrC+md2RQun_?kS1ys{3f^Mr@n(<WP@MlyZJ3J
+zqe*^?<d-Esi~MrrmnXl6AH+}8c+cbayT|YH3xw`G!^LErM=}x*i6I)6W2THt@u(rk
+z2VyMa3V+w)(TM!MSBze4qwx;0-2%&`zQSJc1?sR$;$QOKe#IX1HE-ZIIErsc_dDK}
+y@7aldplyGoNuF#f<}#1rzBKH49>z_GPC6%Zq<JVJuE5|gizQj4LP_!{py@vvp@(1q
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/ProbyA.class out/production/ProgramowaniePodstawowe/zadania_dom/ProbyA.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..852f24895589315120ebb594ca1e973c0f61d565
+GIT binary patch
+literal 3220
+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
+Tqn-BO4rctzM_?9n$fNl`eSfvh
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/ZadaniaZflimuKurs.class out/production/ProgramowaniePodstawowe/zadania_dom/ZadaniaZflimuKurs.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..a3abfac0252eda498cc443007475afff101af647
+GIT binary patch
+literal 5053
+zc$}qIeQ;FO760A$cK5yPZeZE4#DoM^z6?Y`MORHA5(3IX$YK&cl2qhn^GIH@U+jl5
+z@mm3@U$wPX5la=cRI9dP8)`sotJ6+DrsMRFw$qvZQJv}3kI|X>SD7gN-M5>N$bz)p
+z*>}%<=brPs=bU@*Irshci_wz+uEASwC{Q&xyl}!L;OjSTHI~JUMDMalcfT3U3b<BS
+z2`k$mpw=wjQUV<%8r)uZ;GH7gHk8SlaY`j~R0=fPBUW<RrnHsFwq?_%5wCY+8m4RT
+zc`*ZifwCep0$NJG#S#LJn(*Q+8fFUkhm9U1VHvmdB;%A$b`LeWQ3h2u<z8Hb3W1rK
+zTs+smHfF}nM0Tj%=#E*@ApvJimyI%8K<Nrgg=#P6V6MPLwnAReSTmU0Iuy5zbaK$3
+z&oy1t3hTI7VENMj{wE!sFTGsAP}DR}ic*%&_0})mqGOT349+~<Z3I)vo?*+3C5)hs
+z8X3GiJ7JlVh9u?^FKTfq?XzRFQ(#3A@UG@BFJk@TqRXLUDG~k$_a=URZlcS*xB^!S
+zl*f$$vniQ~8riK@wvW9`)<|SCG6LbnXPYVgxyp;HWsID*Kaz8ejG9Zwbpop=&lK!z
+zT+`SRUK?!Nym9mTV0+{0=5W*6;8)nEqh6q~I8L~^CEWN`0OM{7T&{y>ps6TUd+Xbe
+zuix;_?)D3U)3HiGEYY$0tMMXhwzfvvTRP4MtYZ!FxOHw2SXC6SX<a1Tvf+Z9)v=Bd
+zTk`+@bgVyD;Fky6+FQddH(r=E%>pHDX19^aT1G-gi-3ERHONDn&J0*OHu2m~3<uAQ
+zxY3F>4eefR#+Iph%HDlELNPPZo9(mHTG-DlxJ~Zk4uMOG9I0aa*AErj{BU5Kj+=?s
+z$iv)k$cb<9Vh5N-w78Lt_L-S;<bX~;b8b}5+EaYi&Z4KL6+6A?1ugevlbcg1Gu>ol
+zOva(6sF5!8%P9r~78Nt1_zZC`5=hd6w3&(-QKHYPX=*Bpuc2Q@n#X@rGMhGbTJP)+
+zMw4k{I5@~|)a;jVSub+9l`)F;8R^DsKC?IZSxat{wk0(T3sg_e@tyg8=gycF&uz%1
+z8AC@?vWJFDZ?+O<OD^7Rre*3T$KRZc8nG=#+LG@DrX$;DQE6`Tc~O}igvBS!ZICs(
+zsm7YXl`Cz_8qtA`Mrs1h=)Qt7tO`t4QigAixM3w^WV(tac%l+W?BX-XhajS#I!3ye
+zW|b9DVYIXPTEw+%KD*%6%ROrs210e`ZHncs$w_1@ZrQ;o0<0&D;Xx}iz!mjMv6hKf
+zJ(XWIQ^R8#_VRSKC3EShd4nb0o^@8hmP&M<r`5@1Hbc$SMl;)&?8!`b;gB1L@w|o?
+z<dS}0V8Izfti-L!0kdFFzC_$$M6<~>>+@5ScV$5^54z4s^u)}}g63p$AeX8?+p%*g
+zwhyJuBI4(+i<2Rmj99GA%9^Z>Kj4)?=GB*&gECf(fv5`#9WM)1hU0Rhi{P*^Xqjol
+z?j;7^etnQB>s9XM@d!^9Nf-r@9}CpvA*^7F6qq8~|IVH%(nkfV#wYAIGudF8{Dc|I
+zXB=tLPbe`lr966OY`}{41!Ht1Z5urzFu#-c8(t)ACZ%}6FoI@qFj&yc*@8dgHWNYq
+z1UE}Kkzjg>8JUck(QsT~;RUUghBpP~oL`jF<b`oDhM0ck&%rv&Ybe{>`L>KykUEzf
+zgLsV{1$VG@*-RC8vi0T#a2M_-74jljP=1IK4$`^m%G#5To`&iJm|j&|y>!RQ-RkKh
+zr$0Lit!f0Nuh~!%wvxaSTwzA@Ff+{{Er**|MUOqz62kH7ihFP`H3(doRQB$}Y)-47
+z8uxQl!ESPSvHl#I5T`JmW4v${4EqDMoum!wO0}U@y^_X-90A7x_^bF9a7YUswD8kf
+z$E2}pzR9tM{8-h?6L!y|t>DGU!FguTzDm*{{J4xa-4N*t1Z?{o=$jWaZTlUlndr%p
+zaZehs2YYQ#RunvOpbih%9!sBC?Y`i(UpiGbM(0RSf_?aU-Z!n35t>HBo;!}Rj$^#X
+z>L=VCsx#8z&>|g9pDWVg^0BA+^vK5AOGhxv`6enmRF{-;P>PS!5ozmi_`byIaPiU9
+zNQbUQ+FEKa8$ngb!6ghhxQ3+u;0WgV^pG>)bf#qcG^R=RLb8v*C%c!ZZ$cTt;;r(9
+z0Q1z4E8z0YJ%m{j$TiCSh7l~^?Gi^$e?Zm<LcTdt=D=AJT!N4C5)&ZR0hcrNv^~|A
+zu-+?ReH?Q6+#!wzw8Q6{(|y8Sr`xy{`pHA^SLjr6Ir}2E)W>9USJ-A%P(zL`onqNP
+zrGwYn4wg(Z(grIFl-LS8LM1ku^deAFh+!Rd^pMLDDshC|0e8T47`{MBz}-h-H-$g7
+zg-5wJIM+O>u~J6e9dfDT@|UO~Prws!AHobde!aBGL)B06hS)HFkt2<^eFd#m0k^H@
+zDyTJ0s9gZuTXJM=e)+XLB;&iW0I8iDa?Utpz;h6uDfoY%gnu;Om*Y1U+zylaH`KZP
+z8|ys&NS#+MgS)~#f}2LMbv!r~o(hl6>73wrE4<`5dPdPT!K0r4Ya`e`itaO-BQQr{
+zoq6{eK63=IQKZIsw8+1!uC$`m29%D=C6;f8u~6!i23#Y^kWe%;ia}eEYrb3K7Wwl;
+z+7kzPl?2n5jw;M&0;^%F+RkKUGKs{Qnsek1VF44wLZ*O4_y#4OVKRIkm*Q0>nd79t
+z;P(49F2}np{C^{TAItFpuEJ;hxI2ZA&~TL~<riHU>O?ue$Yx`On1_{O8R^xyUexo0
+zs1c2#nO{VkNxQIC^zv(Fkn~P|kL*EM?BfT;qu3z!^NZjx>5GW4CTtRK;3jbbt>P`T
+ziQk}Iyi58gUish0R`C(GiBEZ@|2H}n6<vylbOvr#%F&@z;}&Hhb|}kWD0S#oR+Fwn
+zkJ1WL=_K8OUS%i8W3ZGg`jy)-pxlR;@(AL}6Ql=_R9-+zc?G+aqev^GeE&Ie%C9K*
+zd)%h{5ktyfF|53Y+m(Od4&_7KseFRFSUK)i{kTV6gnQLG+^4R`{pxn?R(r5V?ZaMm
+z7amaW!ans$(r59oOx?o8q<)0YgG|IO{Ek&F-}{*BWB0@_na&?#&n?E7?jL5)BmRZj
+zJWp9p-XoHyY#1L^YOtm-x|h61ZQel^ll<uIxXCULZkf!v=8tiY=<0ra6W?O0pHB;A
+z$y2ahZL&*-3RBIO3<rkP8a&RPQ<N(Y7VMkNS-#DlCK?&pC**z;`;-cNhrANT=Qy6k
+zQ?%tn9K(M0JdD-rc$z&gqjDV%uvcoApqH@dG!1fTct%5+hDr_J<xK_NF*<(=6=NtN
+zDIenmm8anR9Hl~#IgOIDT$N)e6CArJU%+OIy!6ad@Qm59lMpk<c<UQyPMge}O+a!_
+zb1|k(onLT|SMq6{_=C|`anQcCd=Jl(UdvMX9HV!{ZeO(9AKL9JcKai{ea&uPx7(lE
+R?J>MzUnc}caRMh%@gI4%oZtWe
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/ZadanieJar.class out/production/ProgramowaniePodstawowe/zadania_dom/ZadanieJar.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..dc5ac289b7a50707d677fd2c0b73c0c0520ec7cd
+GIT binary patch
+literal 1782
+zc$}40O-x)>6#nk~^bOO;KMbHu9a`EB9bha}`U8%()hcBuwNs};RlLkRr;nL=LmqFa
+zL*mAC=hDQLD>fv?#I#94Bxy`c6YIuRSFVhSiAfilXkv^JzxxJ?P+U04J@?*o&-u=I
+z-#Pcrw|{?m55P&h6NCp|4L%)y>=S61l?yUnkX9}}F*9pq9D#i!re!(_0dKS?tsx)~
+zn|JJT-YMIa>8!LWnH%wZsbI|J<#fTEcVv95x=X4}5E{Hn?AM{AmMAit74Stz6<EDM
+zvm3GOn1%RR+m;pO6-1qKYC^My79Fh!2{dkJHflLW&aefv1z9K?6YmOyh?jiAVt7B=
+z(V^if75iy{y6sphj6iENx%-2Md!{smx8k|Bsf@HN!>++Ih-m22aS(@gP?f68J4R8!
+zV_L+lLYgIJF;{j{j%~=|a1fn1tVlj0&>r2>q$jN+M0NDw7<np{oqvN}woPlxGJsxz
+zk>ioRNVb%fvy>6Ve5F4!KwT-DS*$ozFK%fE`ySg>D`f`JkGO_sbsWdQRuOhaA-!{I
+zSFm>R#ADOSF<tddCv-fAA=+BTdk$%L+ho*>nxkI@a9W^kO6E)VZ!x3$9~eb9-<#4h
+z4ON+89V5!uH*YSwiiD0A@FF2{hFhE+HQg+a%KV&4`}}{DFCD<k0`+4hM#)6x>{8B_
+z#j=K1*d>dS4QtBjY^fNZa@WR1$wu;>FJ%onB~8n?R4&dK_EkAkpr$EV%E&@m+NRoX
+zDt*okbDm{P?hQ9gi=tGm5Q<*ki#MLrRtktwE~T9#So0p1WOegm3G^lZ$EBmE-_^29
+zlRJB!N5T{c<_q$sDG5iL=HwH-PP5R?Pp`~veg5HHkRy9syaWMiQ;y8!$K{;sr{N02
+zrb=ZyV_Yy5PW?7z{R#nHxWLy){X7urJ)(S-yEtdT*?(*m;<kG{O1aNf*5M+hUNyiN
+zlALQWj!RW%;(2Ka{IL#gauqenSYQRgb<}awFy7k``~r<@X!GEjFR_l!$vZf(itaPM
+zJ2=`DTR~rkZv}%x{#O5|Zf3a4A>0_i363;Jc~if8d=_pxxrCNmUeOzV9A<grk-|Pj
+z>}AY&6XD)9oDo<;n(E&08lLxH1!w8Byzvu{8}ZE&>SAGL?dpDwH3YeiHH2K*<;qVe
+zw^4Pqe2L53%NysIhtK6}0b$A}1kj9HwD4JNCFLO;LK`XW;J-l_2^@ff2o`zrKHs?y
+z(T$IA1Ro>H414f7=exXt_vrC8=Lfuq-(dg`F^KQU#}9lBe#Q_U;S_$uY5dL`uIiIu
+z4H8(z1TM2mtOj1g70v<tf)uWj(N_G3*U6@b`8>om+Ibn{0p7qQ^Pk$Ran<TNt=^=j
+m8^H~x?bq;@22De|(D)?bFN}y#P;`pMgMTuDz}s%mO#cIzT&(B-
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/BazaDanych.class out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/BazaDanych.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..c4eb86b84940e89ae5824ac7f872a1253c3faa10
+GIT binary patch
+literal 1913
+zc$}4$-A)rh6vzM5Z%UzjlmbN%5VS2H6$DX0G?WmVRJ?$|g%@OKH!!s9Hr)k6uY3$2
+z!V66xCS3RcK9upy>{^=bVlYj2W=_vJ|KB-hC;j#N_9uW9yp6&Ke;9!nf(SA6obn5v
+zt8)D~_wnddD_IPob)gGugTbH9>~|o7jxeGzbRxzu+u&uc3w~HO&T_S?s2t{Z_YWJq
+zCd@;lTxwidxlP{STU@^?oiO+cTMVoqlXS-rM-M|loC%GguXrcCYt@B*ye7T+V(6D%
+z5uG<Kg;_DAaUh1I6c1bqt<pzj48<^v6vN;duV{HgFLCQYSSPeIEv{Q8!)m(FF3@f%
+zWZG?{lP+ZTX~`R9B8?Y?uI-$k9clGFepFTLMu}JVd0oh}V+>d)f`sRb|I;B7%RH2n
+zh$5C@9~ly9PxRoiX33t@=n8Z)?NeA<Rolbn-`zmEJzi>blJAbwd^(w}Cz<DfW?<*B
+zchOzryk63_g=|9nuC#fXo!+la!>~-N&TAhu>%=IV@emfHc!8xbmgN{<GECip2>rsS
+zXbz7(*==63jQSPBmsVoO(N6lF>*cCuP8AKKa$fW3-hF|4S2fMU{Zr9>E7mgYDe}Bp
+z-4&L$7Qrj(2pd-)hFC$@wR*nFO;a<&ps7qhh&zlo3}gRxrQ2ycV}dS*kM2T%o^&;7
+z=aUyqt^LlLRQ68#1~CGLN3`1}yNruwe}H92ZV>*id`Ico4ZrdaP+SMPFh-}O?TyD6
+z2h>igF_m+|$@!Ulg0!ZZIkU4j=*rIBpf@`ZxIyAhBZUw><D}6;8oi|1N4)*?CJZRO
+zB|B47FV)mbsrr0sCoA-;ovblHzfa<cL-S6Zi9CBvAlJlkO&Hfm++q;;)+7ljuOX#s
+zD<mCNdL=RKWXsX2s+HNkx`Ibrf`iTAr_E+>IL!{Z8XZ;E35uC)X>zDpbjT^1;aRh+
+zR*)`t71N#|X=K_!W@s>OkPO9S?*WlLm%>?3kX|>)oF~YPH%PA=WPxH9?*Zv|KxREh
+xlW>n_*%M^Wdo&3*$ZLvOy$2+zvidQvVsdy+YlJKd^j)DynS=g;uudAoe*m&TRTuyO
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/Danezlozone.class out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/Danezlozone.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..6f0eff3e93d34a28a2d89ce736e9950a5fe0fbab
+GIT binary patch
+literal 326
+zc$}3_u};G<6g;<SQbM5-f6%Q(0*?$JmZDA(9g4C>FNp;%u3e=m68<YDBnCc!k3zhJ
+z4y^b|ckk{!+q$psk52$sNMiKRj}VM7Kq!!`>4l^r`zV*iT9u7Jc%!XuZUy?&Sr%a^
+zaN(&Ut0}MCMsAIM&gZKv_q5f!+*PH2ZR8zU<&E>sDuH0`DyDI&t-9ZD3ROQ)Vc0oK
+zT}dXRTDSUO2F;V+3CQ$czg!E%E4Qypwb1P=$)DL}8wwLdoV7iIi_<b5v67tz2Iub(
+ZZ`||{GlrcR<Ct;uyTE+XT|e!%#y?5|PGSH6
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Kon.class out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Kon.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..712d11dcf13c4b280bc057510bd9d20bd8b78edf
+GIT binary patch
+literal 1148
+zc$|$>%We}f6g_U*Oqvc&NM9663D8H{LPL3oMNk(6RTRQQN>vstDmP<VH#2rL<1|Xv
+zd<1+32!YfEE7<T+i0foT11+c{*<)XybA0Z#{p07+R{-~MFO2~t91OY`LXu&z!#%Df
+z-|=)%Y-nG;(P1DvG!8rMy3f6xwPH2mb%x{vsiawFm?%^Z_#rR)T<sOBCX{Ngw6r~p
+z6owt7U5vnG$o4_nkr4qyLN^Vudt|ALFNtZ0FL+QI#waolvM$ae$FOh)S5LKK7*f2`
+z;taWymU5KuxQhu)GE4=$F3MWfxOpYbK8+&7m5FGl(~>zEO5*~i9b9yA$yROblpGkG
+zhMoCjYp|?6!H}s)C7w5fT@h~aU0+zAy2kx&9!fipgM(&Yl9fW`Y+08WMp|u;A3W-`
+zq@a^Y6qdFbTtW$t@@iEjiKeT%8P>#xv^%7TwrV}o!93L3L?+~oXTt1jFUllQNMi}h
+z4pwZrZZOOp=P%Wvu8X(~y$Wvdn$cmK;az|2Vqj17F;|{1qPdFJ^=6}VvY!7UZnYcY
+z6!`1D(2LyzQ8RxWQY=yCzF(C_lu}q_n0X@Xz0242_qTbOw-=?&gM1{vz0Wf$*QQb;
+zEc-l)MC4$NVg5|XIJm<w`+q1smL3>a>0S@OehD!9;;5gY**ZmSJh{B`1?&Tj25_1B
+zbT{e{GKE<hP4-Z@f_zscY2OEFFjBr2YpqaYwjIkPyMfWJgxgz;B^a*%CR!7AE&CD9
+v@+X`-!Wi%wQ-9mZA%pQgt!%87z+4wOj|KXtXl;?&O%%IKhFiFeyO{n3`x78P
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Osoba.class out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Osoba.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..898972010815745f05a59a977f6a01f19188225d
+GIT binary patch
+literal 912
+zc$}3|OOFyk5dIoihR5u}g1bHz71tNA#)&5nn7x>ILe_*02V=5npk*6orpeGqn7hBl
+z^BNz~gD2y`A7!j=$hsyT@G#Z&`l`OFsh_{Tegp6r2RS5=bdYkffiy#L#NTkw=i$&h
+z>WxHSGo+u$Q0ha5WUb!KB7>}hoQphMhFZ)AJe2%opaO5AeEC{Mfs9Fy;>FnKgOf+z
+z(Ny&~gA>oCh+@I;ptT0-<ubdO#}*0>iY~SdzsCAd2A7;-Fx7nCks^ySE;-n7v5U)p
+z4cb{uwFqcFHKTENS~en;_ac&^?&wJHpqar{hH_hqYQTf)a+L3H^_b_dhl+#iE^go^
+zrTha-vrmlWhg7}Ry3kmYd)TaZ8B$NxfEX8AG8FAu&=b)y@A>2@wN#(`T^>neube4;
+zDyOuJbrxyY-(=V}z9El7IXYjESNoq|VR-J1__)pE#hlYhkLPM6mQk+9iea;(d4K$z
+zPgXp09W{&k;+eFDW%AIBk6Uy`2|7SVk`9TqB<Xa4B&%e3^fG!k8lS<=NJ$U`Hf&P&
+zNxI7f+{PVS=q~Q9z=xD=il-X~AL0B#=d9NuOvYB&U1qH+7%gwBGTc8W@``dypGxBc
+zoF6Ed=L<F&-XZ@UrP7s8xOQeanGPkSNam@BOV_qVr%}AXwX*6|qc4R-*&%P;vTOVX
+DFYeQl
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/MainPoliformizm.class out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/MainPoliformizm.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..97195b31258431b21e54cc2a2e72de27e80c6b98
+GIT binary patch
+literal 1194
+zc$}3}&2JJ>5dXdMv2<Bm3KXgJqeX3j(ypy2)fz80dXUma8WQx-JYb8DkKJYg348R9
+z@$RKWNxXUSk222NR!N#3);-MZo0;GIX6DWN_51q|00lf#F$13hzlH#U43QT9#Ptq0
+zoBCm`Wz_o&!56|5{g({Bbf%&p#IWx01~&yiX;@wT%<70!%kBz?{%vQ}?(oLRwtggx
+zUI;3Kzc}iRR4C9S#SMnVba6^j?%Tp_?qw=r%p;;;K|@s5k@Z0FekcsvF&M(bQG>Vk
+z9Xhua#2L~a(1$&%##O}N3*jbp`Hr9RpPv;hF|2ujzqQN|mZ`lrok3qk5}M3)SHnH5
+zFf7Q(Cbvz|`d6i%E_!c@CL;5tG~ActSZ?uli94eqFAL*%Xtj)sINont3LY}-cu0M~
+zg?Th}QSGm+1{F466sA!cbZdrv%xfL8M2l9PcPiW#@_cFZ_dkjrL*7dlSE%*~-6a!4
+zBK_gI+b2J_o0L6vjhjJn{thwsKQm+qSn`%>oxH%@jgY0D(e5&2ykO*-6U5iHs5ws;
+zOp8MRwQLRSy75}b$;PjYYfFv*t9U?fQ+_jG@^zA2qmxdWkq%_XU|(JLI?14G^dU`B
+zy9huAS<<uEK<*O!g(3o^cPCJ)(b+M=#f@*6W0)XT9b@spwI|44njl$?-WucfbAN8h
+ze~vr3bF5DJQV6*mDltbOUqF~_8a6S9$Ml#Bh`Y7qFZjs5MOr1P;}KPp#0s{tL)lVD
+U5F$^NZBmXWcnUxH3og^{AGnA-+W-In
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/Plik.class out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/Plik.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..3a831e5f9f600c6028b99be61f0b6ed219782531
+GIT binary patch
+literal 2309
+zc$|$@TUQfT6#fngOcDpdAShyWyi|jLfqJ1BYl{(E%0MWIShPwf$pE9tOq@&z<e?9)
+z)&2qB`UiOI(g(1*)R*?9KdP(WnGocX)i!J8oSD79ef#!4Xa4&8&3gc&s726%fP$ck
+zR<sFpJ~38}c)_rj<EiWuGv^7k-L!1WyCo2a_0NY85(t$F*3--0nx`Nl5cN$gCw|u|
+znD<@FGu;TnP^HIqfu5ND(P!FoEqgifpnqOL2Xzh8+m)py(>3!A^TRkI&7%Tc+vWt-
+zl?j=|QGsyIDQof{k?<ZB$8cPrwJJdZ-A$s(peN|D;cqfEv6eGSp5@qKoWv&zPN_Hz
+zZ4V3S^|EIcS-evr7u`F_%+jSt$EHzCgm6}%<MyA=|M)qt*@h<RsYGxdpDMVZ;-XBf
+ztBIk2Qj%{4JA{6LKJDJzq*kp~wTz=>P0evN+wn9{zJxH);5}DfRWP(SNx#4d;uuyi
+zqT(}LX+*Rca*2(J&l=uJnRP6itRvBco`+2s(+~PcD7YqYe6J!^GVRnhlcV@t!I+90
+zNC;?qacR%6^M;%Mi06DI=O)H869Q-T{{kl>_yV^Se5v9qj2|db4j@ZB<j+981c67f
+zW<~6(HMwHAY4cgdv~y;IgeHYGCnJO;)7aPg5&k0R#e|Bx@=$e@>OD7dPcyEOV>7?u
+zq?XOB5eea2IR&z><&xx1S1~P#Ya5@PotU{J3r?w+#diWKXC^;hDCm|g%e>IEu<a}>
+zo>hqJR@qC)IZVqT%<MZA_4CbBA!E#|xR37zA~HsUy4b%(*gYp9Jm7RD9osW)?}maO
+zm|e}t8@6RE=AB|(*0-2U&o9=Dl2u-G^10f&7oVk6AeeOWJg^<Is+meLYq}XDTc9MW
+zJ2|5;Z@89x-xdbF6^pgU^#A9cL<Wn7Wy@=**?iAaUt&=*+5s)uSlYSL1di$lFFIll
+zXZPG)JQ{lQTa8#@?!H2H-9OZY%1+VDm}{O)$!Df>e=9jDxjM(Z{>+9g@rJuhQo5Q{
+z$iny1xL#^dd48Y!n+L6L(Z1cE+i9cZn<=O^j-3z8thi3K?k|#dDsIk{<S;$S{$+{7
+z89d}SM*dnL<X494BfiDC3+}C#wjf^m>c?E$d|^8lxvF&leuTk2j4X0><CZbvS}FSw
+zRrI$AFAM~?aA^814lfLDp>t*^+O>)94fgC6`l4qxac%>l8^PY-hiFWXUJAU!;A>nS
+z2)@JBg}^IZPrt^^`x|6j!fz8ku!%d-ul4BUe&|$lXv5`e%t!@gbGu~srX_fRVD5wU
+zY;<Y&5(<kr$*)eYzYlOdjhMd=V94KxF@+iGA7T~j+<(C)e&-(a>H3Ly;0OYUlC&=L
+zpqqaBC_M%Z$LXt&UV7=PkDgB93N=%_5@y(!6wdP0pQGoC^cAE3Ax5}_8ZDk<kdcP*
+z0weg9ACwJR{)VfJJ<90U@CMiM9%Fu+YHU=1G4e3ko_2I#3CnC}51X_Ci#iP<Ji$|H
+zuP~>Ak4w?2E_=KqtL?~MFs~wPK5fvSLv0IV22t|0Y&@R9<zC(%lRDnxQ-zWf2rnw=
+Wol>wGe8dOUUtBIhBG&w2TmJ|6_d#R;
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Zwierze.class out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Zwierze.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..84e60c598d13b220e5ae68783a8f0546d80e1af2
+GIT binary patch
+literal 181
+zc$_VbJr2S!4256#X`yuB7{EZp#03y5LnQ{5$}|C`O&b&nRdX~34#1%hiG-JD`}uwT
+zd|z(>TO=_C3@b;18b!G<HNP3HF2>f%`QEy|(j@W?KXpo4Cu58l<|RFeYih3ia4u!h
+zGR(SOP`Pvds$v)}mPdxv$ECQp)MZLCB$;{GLhhCJL;B~f11e(h8H5^m{1_3!n>eU<
+ICSi~154Q6y+5i9m
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Pies.class out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Pies.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..03efc613d968240a2bfde7dd992c1c081e0d6802
+GIT binary patch
+literal 1182
+zc$|%sT~8B16o%iS&~3{~YxxpCa8(2fO2scOFkDze)Kn!YsTW?5p*zx{yED!1l%~D(
+zSLn~s7)`kFN^ks8#<T54t5m}#J9Fmjd!Ctd=Ir+$$6o+!U?YPOBrJ^D7(<d_smooi
+zB;RwjUu<emzSe;+yJQF5PQ&Bw-g>bT@&-flfmG6LF-$L)5BU)<dR!e8D<+WYV6#w7
+zBZahujE!;F47mYGCp5xmNa&WK=zg%&#T|+?6fd~HnZg9acwM)?y>WVD205Iykhd`z
+z9dmL>5QEi>R-Q^@8Z#DVZJfj0>2lhUB4ij-yxZms`I8ytsazLqT*M`YS)VsVNvj$+
+zFQuuI6&kJ#0TzeV;-rgVw4`0ZkS$9kp11sc5$y7PPefbm8uzL^kkLAJj+(k8dZB#E
+zOlX7gcE{z1kGgFs=&};ag(`zhGU3u$+Z9RFOhvbXn%I`n7U?K%EjlS()<dmLXae4R
+zCQMzsVK#}C3|4W&!p*1#YYYp&lalI4H$<FUzbxClW^~YDcsp2-SlEX?=F0U%xKP%*
+z(Q0m<EYiOMcRNinME+{P^<w`})XX21j}ayAc@=2{b=WP2dFQE!n$c-e@{V-q`a5mz
+zJE8pg&T$x3?1@q$D0w^#MQGs;!}U|8W8ogr|1YIqs4vD9>emrOPXa9Z4{4mI)fRap
+ze{yB@GuV5wMsS(NOwVhPG6jdMnZAlRS9_FX)c3?-xQ2z8wLuz2bNU0U{FzV4{*AK<
+zHqpb`ePN8Flz&0CVn~i4D<3g+jPt+{RvuYQ4X|=CD}lwHatX^cr|4UO-Xhj}kqozS
+I7xyvu6I4Sf4FCWD
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/Takson.class out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/Takson.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..438cdbb7ba9615f7ce3df8051cbf36db05f20570
+GIT binary patch
+literal 2296
+zc$}@2-%}e^6vw|eBw4a7P)GuewdpTP!_pFsTD8=uL}{Zbb%eo=J}{T$4lD_~ncYiA
+zc=ccK!9T)>I%9OE5B>rEQBKdjyR)>*(&52ma(|qhbH1N*&+h&AznA|2_!!@r$Y9Js
+z)<O<>hD!(hIj;}6yH|g@dmy@!A^*^E9ob|Ut1WF8Fph!&)4~KShS~}5ao6EHJ@2qS
+z960@**5>xk2_HJaj@Rp+9LxF^?+2dCka2wm)>a9oEKK7PW%j+^2|r+%?VQSPO5bt!
+zR+ZnZg`)B^_P9K9MPJ#<7Uq<4#%-wWWeXLxWj~v=yJF#8TxH1Z3Ay2G;<mD1vv3_Z
+z7z$+nKGH1Jmd>gw=UWyQl(R|Bk3wN(UbJv0&fQR!B@4E)WXbYumX7nTg?m_Gm_Ouw
+z(em6bmp?dipH_k7t_&D{skP6F{$G}q)a{fS8SINuwA)MDR9(yK35My8<BE-=!(HKT
+z@!f$?P4l{Zu+4o(?IUAW?mJYc-MQ$4K{(l(78;jcD9o@}J4=&VNg)tJ?sMr;vvWb%
+zbh5=wE~h0TEi;IF8wECqgXU-S-==rucg4D+>X`^BS5y{yJJvi;2GZxlCqnLfy<j?z
+zmWi+MwSjfj{6`E6r-F|A-0O=-H+&w}d6!_18Gd`6EOHE!KIU$3AcBRC=k<?<Z}0pY
+zfm_Ezk>dVSC;3jlah6ev79R{Y9Vu4F(WWzG@dsAhb%oy=@E{O@feyp%3y~YxV5q*`
+zmF|Gh88_&K%FsKMqmix_T4mHFq32>W&qel%o+m-AL!HL=X!k4G^E6+#{|2+Kj9}Pz
+zN0_wljWA=Evm=!3a&CnAKXiuoX{^GaaROP&R-kNC^evKRh19NL1`YbR8Ro<X_z=)5
+z#m4kX(Pi{X@r~(~BFyTQV$5m6k0Qc#@>c$4OnAyNrQ?efTOyXS)}9N!V{J3iX1Grm
+zcbM}>@>X6|`!Bq+OhZ)-H`Q=k4Yik823{m|E>orouF`y}Q;l`1_=M_FI&_ytI(5CL
+z?%03A_&rXS*T$+&6CO)0O2hDJTzE4oJfA4q)Yh96bL%ybd<>G03#Q9E1!VF?0%S22
+z<N;RCfGpFakp!_RX89bD>F7ijQbA^tAS<aL57R+rk{}HolMYghK<=crrj%^W{Zx?8
+z(pytXf;^y@)pJ1RqSn}{AoEF(W-3TC9b`TUvPLnjb3iIO>li-QF<;<In#akqM!(1S
+NM(1Go7EkaLl~+VlmOTIf
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Ssak.class out/production/ProgramowaniePodstawowe/zadania_dom/poliformizm/przyklad_1/Ssak.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..7eb6587100df761d00da74fd03476484c9946150
+GIT binary patch
+literal 451
+zc$|$<u}%U(5PfqToSX=Vg0+=^i5DshjExBu(E>wZLk4ceh2zdFhs66U3u9v82l!FO
+zSv0Y*A(Ne*H?#9*_wDD``v-t?9QkmN^Wc_{M}bhC@e>CT$J5|uJX4dDP`J>sPA>_$
+zW@}i)4vHT95_VA{oMaqwta%hBi{LSd^nGF$I+NIB&+~}GQ70HIc}~d3oUNHq>;Fv{
+zq(;Znu7@(Ay#>?VS}T(&LcRH)r8OkDS4k-4N?*t7dbJoUbIapM*{R8dqahn@@o&;i
+zAM}#Y>TmgoF2NrpD>G3&ZTpKhd1f!-9*Zmv2z#<zD~*UtVtG`=R|WN??#S-9-$3ot
+lS9mXi9PEoPBPU)y!HO$Z6V&)QjRPD4o5-?S&ibaW@eP4sX_){3
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/ZadanieB.class out/production/ProgramowaniePodstawowe/zadania_dom/ZadanieB.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..f1785fc0c6056a06c96f3adcd6be63b9629b13ec
+GIT binary patch
+literal 783
+zc${^STT22#6vzLgd(q8XYL?o?-qtPhv4_Hkf<TZ83ZY(N)WKG~gtv!2Qx646&_f@f
+z4;7u6U5!dvm^pLi{LlIAe?Gt7KL8w}U?G5@2`vI021BCFC%n|*y;kX>-WH7!gK_Nk
+z+)<e!Xcuc?gb+4iMX-VhL;8_7dC%o{&3?CZt737&pig*bEErft*2f}<Bf+3O48(*X
+zQ(YuFV#wK*#aG1|iBJ1Y>KL!OJ#jwn*2UnO*E^I+R{IU!squj;&wf%H-Md4EP)m$z
+z9ty!%C^4KTG`k}EnpASBxHjzKGBR^GE6Uo-5v{BKc+e1Mt|W-gt`4N5*d-qV<amHS
+za!y5L3hg?`FRap<q|=Rj4%*|+8<>-y!gThhh`uO6iq<4FT0^vk>9Y`{c4^8KJQ>zh
+zQyIxIOhs}~fZ`0+{V^rl<(=-l!hD)HH&imF8hT>gZ%Fna>x;|kFQ{7a{h(PYn<Pz2
+vb;x*Cb0ot@qL)T~0Z8=u4@hPq$R@V_f$aVA$OFldCcgwkIwA*eE6vU~!ufQa
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/ZadanieA.class out/production/ProgramowaniePodstawowe/zadania_dom/ZadanieA.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..eddda12464ea8d3a2431552197cab4e4b1345fd8
+GIT binary patch
+literal 1038
+zc${@oT~8B16g|@xwq3Tg7ARlJXT`Qa>t}p`n4r<5Nl}uT8uXzV%BC!|yJdHa!lS>(
+z7ZZg<5`8rBM;Xs-m-MA(k~??i-h0lOd*{#JA3p&+#S<M7L^Z?=j9^qCeJsypxh?Hh
+z`OU$x+4KcQw=LW9p9w_sg}R2gz~qHIl(r=shfb&bKJd-w3FsKpU>HbZe0a`|K;-nJ
+zK(;yzU`vOFw9;`)U@l)7o}?s92$VeE?Vb2N_q@TtdGo03`Ht6UTb?h=HM)B}&p&_p
+zscCk7%dvH25LNhD1Jjrhh__6?F55jbcveM)<_yf^wt&Xao@<^7%;XFIQ>rUC9g7B*
+zuq-fgA-k3*5X)Bzbro1OkW)O-uG8i93+Iqbsj6k0uX~*X(|s!s+PukBou+KprE95k
+zcp3AL6xPr#?QD_ktS?+tm}|DpjzF^J%jU_h?A}0hq-7H#|Die<Xw7#myTuMNF5MO>
+zCWeGLBac(pYfjH?ny)Mcm%L#wsdOwu{ThI&YS{E*^!a~i@A6dUF1U{ruOPnCiC~R(
+zw10_vv_|OXQ3!z8#jtpvU{UT9*U<Loi{FsALTb0T@g0c))Oe7RB72&X%><B3{jv~J
+zc}1)fG)dwORz&D?CLzr!&*}|1#qb+r*U0Q&Ve*$cUSevy*mq`0JO71w(SSEg$-tEQ
+zNMxVkUz)`V<^uj~A1~yeCU2jAGpH6RBv1-kqv$_}^rdU)<h@f}k6mJ6T~j6<53Hf=
+zC05=I%%A~lL{m?Wvu{aC$Y7Ona#*00RZ37IHn|4EO1O^)+~cf$$fz38qX6&mKQ?2&
+AjQ{`u
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/BazaDanychMain.class out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/BazaDanychMain.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..61f222f434f868cf1aa63284ed6dc5959ea4ea36
+GIT binary patch
+literal 4749
+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
+DWsCjd
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/ProbyRobioneWDomu.class out/production/ProgramowaniePodstawowe/zadania_dom/ProbyRobioneWDomu.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..dbdac5c6c2536287829b183d8c154ca1a9c64571
+GIT binary patch
+literal 1913
+zc$~FWOKcle6g|(L@k|`&=hR7@*o{*Xnh!W>T3m<|m)0RP)JZB_rHaBQV|z%Zv1cNC
+zT#>9;L}J5+9V>)NrEV%jsT8D$c2^dtQdbB8V#Tf!5-S#{Z8$SdAXP%e221naeed0S
+z-nnP4?|k=U`!0afxafxmUIkJBGJFEfSG23za8Wathv#xv^t>(L8#heDP6>GX2j=Ub
+zqE3N7fO-U;a?h?;Y`sJ;tID8I#yv5t;frO%w6k_u*GkDC?`#a93C#lSC2dttTV`If
+zFB|p>t%|Lgc7?J1(*v1(z%~(<lYRuzs^CZfA+!m!9)d3*uQ@9R;vm4lyaUk@K-fuC
+zaXpKsiY|eL!T;;$Tp4w)Yzso5+sQp9(AGbFSc(dcQNP8-=^$T9qk=wx=!RC%OhbFO
+zV3nAvm0N$)${CiaU!Jr|RRJk&6?B27jA81t)lyC`U(#|#?gTSdUMtRPWy4wTZc6rw
+zL4mt7&qPhqv7{NM!*lU49R);=&ouqC@-hKi4{@VIo{z?dNW!4xHdz>X?syiR*h;lT
+zTP<mMLoaWv3p8YHEx$UWt+{j+Bn13ft6I+MQ-(vo?Euxdb1lp8oMqV+yR5Cv==O?L
+zs5JR-#*bHVR>3((^Rz(kKMW1?s<o=`60Mcsl$N)xGC6#*zjAgRYoO;fvryD4y&20|
+zt*#{xX8dn~m)6(xL)`akR{O6d2M$7{wPG=A*m_dMYZOk@sd!zWWmn4BVob!|j!ndb
+z3QF4GNE+k8Ms6%71On5hsh875ty0k|3NiwH|0y{IvjRt-?aIbbb4Cw(S+CB|!y0EB
+z;rKjP!<+?YdGKq9Tki33jy`wOi++xQnga$f$hi(fc%c^Txdw@Ah{<OExHJ*z`W%B&
+zD$1$-D=3lZ$~GE+EwpTU#f_bZ+}lF?rib<qw1b^nh)4^mi37gTuIoF${p~HKB3%En
+z7t!obNFnJP|CrC4kVA6VclR2OhkYSABuRykT$rPyvmKJ-+c@e#MmFXBS2_URgc2gk
+zJ@k0SRPRJ2tP<s<Hx+e_-jEcDE=fzDp&_hBMx&9r8}Pf9cg{`aXE%xadx2wnfqfyx
+zb&D@06kb=epAzAxeInd*m@3<N&Lw%v)!Whj3o7jB?FD-{TX_pL?&jRbc0R<t69jw(
+zjhNuc1-7nPv?7ZmSYXqA3vGA@?Z~48tL$hNI#ERzK0pK?A&O6FUnkm4#PB7H;x>-q
+z4ol-(qCem}{gDiQ<(q!U_3zyOg9WmK5mxRA(TY*gOM4Kf#0Z8(0;ffqOq?2dk4yuM
+zc@c5)W<@Y=#K}mUCEvJHa^eg|X?ZYCw3?rV?{Sirg!geDr)bG!`v5N?!3w;MkNNS7
+zGvhn>5HFLd%G<!|Yk5pK@ra*@jz3ZV2=(F##)MEXHuM;soO{$xpDYWtzn-@w-Krj^
+cUZ6@|q{wE{9jDy!Jl^1mpVkG;U=HEG0EC>bcmMzZ
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/okienkowy/Test$1.class out/production/ProgramowaniePodstawowe/zadania_dom/okienkowy/Test$1.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..20e265de9d812860ce2fab319a42084fff0edbab
+GIT binary patch
+literal 573
+zc$|GvO-lnY5Pi|L+pepv^`m|k4<1?%E}nW&yojQ(Dp;wA2T8l3O}m@G?pD!%<w;QR
+z2l%7J*(lb78b~JdX6C)g<n8_W6+i=32V)qwVY!$<j-k}&x7-W4>UwAGzUZV3xm~Gb
+zy2mhHtG8_A8P*<nz?I}TfsQ;qkU|ag-Mx2me;D&fIIuIuNru(m^Dab^Zfx6_VknQ~
+z&WB3zb|@IEeI1Y~`cjG0Vbm7!#b==G>kbcFJeHaN1zKrOCJa^oKd~L^J{~Ftr>Tc=
+zM;ywmw2%e2vKC0~Ky^Z$NYy<NX-@|>78#cR=5(=)6;hA5B-(}AwLf}FGmVL7r`}@7
+zpHl9TPH2wqu~H)54|$S^1nbBqPbhuE7;Tz9dDC?B$g&LCd;)tk;Ub+m1KKFj>3$|)
+z24%7gv){!HLkbjLU|&6<a5*AyjE;jmCV!9=zDO+0nap`C7_WjQtQw?(HB(2!gIOOs
+Ck$4mU
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/okienkowy/MyFrame.class out/production/ProgramowaniePodstawowe/zadania_dom/okienkowy/MyFrame.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..d0ea08a9d6859dc5d17ef1603a4cbfa469ca2dda
+GIT binary patch
+literal 803
+zc$|GwZEw<06n^do6iOYexH;V>%(p?Et7Fc6!1zH7*$nd~7|8r$?&x)1DZNWuMEF1c
+z0KY(@i9f&}WxTgkgNd<C&h2xabDs0k`{U==?*I;Qn8pG@_K3NzD0PJIIyw?aYDgK-
+zkR~uc(2w+!9Spg5Za-`Iw9g1qkGRLf#{?_ors8dvO12gHGN@K*>(G(aU>LZBC4$W{
+zb*RVbTSxS5(c{ePiQ&jT8O3UA0Slk9cXZ%}byo!J#Rc<e$c0CcC?C({@&=Y+5@<5E
+z#m6!$Sw4=r%LY~ymz7*obfZ)aR|pDGZ*&;i4Oa}CbR-6$j#XS$vt1)tEYAcs3~b^$
+zK}HEgQ3UJpWGZ{+JE0yuXTF?ILn#*jvzRA?Fce-IHwg5X{&>{oL9eu@qll!caNEEg
+zY|Dz&aR{tA?Yih+2#<MTt@1Bt8kKp)Y8rRv@xBtjXJ8k$bj$YJJm6<8Q=5BJY0IN7
+z9EoyG?y={C{u%RM(}*|Krrb95xx%qC5x(aEL9zMYKUR~aT4LaLS%a%ABlhpA{;>sh
+zgVaOhEB7qzeThCxFOg@*GRYK+R%(KbwM=&M&ICCtU(Hu1C|KXHdOF401ncs%cxrA<
+zadU!Oof#_sg{<EwF~QCkDZPL_X)W0RkVXm_WYzVMb^`{sv4jKUP)8oGV4{rzsxs1;
+PwS|2=h?+i#lpg*95iz*X
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/okienkowy/Test.class out/production/ProgramowaniePodstawowe/zadania_dom/okienkowy/Test.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..209f75e4cdf7f690c113dbd1ff453bef23de75e0
+GIT binary patch
+literal 582
+zc${@n%SyvQ6g^{OW0PoWtF3PlTvQhZS0WWRML~!aZ4tzUOxvMO9}~!<MgPiGMZpj7
+zqr^M0P!~Fjd+zg`dzsI#w+{eE*tRf(lnKMZEYb|QE+2BY&sE30YIa2{Vo0AzC8JY@
+zRC({##2mxMGjDSx`9s?uxPDIx)$>PBZbO98?x6(}DGN3n6Y~xhkYy+&tb7!?XG5W)
+z>sZ8s!Io<1_k_nI5ipd>-c<W0R*E<KqM{WS8P@(+WH73Jo9MEhRH7CSnj&cES%$pl
+zw|M`S2U5qAq!B&JkZ$n)r>s!dfJ?<tEZ_gysvZSWb!aE5^Pod4g+Iy+R^5+-mN=JM
+zFQXX`bQfJ*BmYw96=~SHP)Y>VJ`Y0?Vh1_;3jJol^k<OGQ{)md!rA>X*h^9_kWK$2
+zu|(FH_{%5~W>CV)WcWBC1MGL0cVlE;VNEHlM9(Cg|3zbC6>EektS6lt*d#QlW@0Ou
+I(q8hu0Rf+UM*si-
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zadanie1Main.class out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zadanie1Main.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..b5456f135364d9a8a6cc34196028be6ba90d5f23
+GIT binary patch
+literal 2941
+zc$}S9TXR!Y6#jOa<fNzRg_Je~v7}hAS3+rlHZ5RV2~^S+38qrSx|1B*(<bMHoD(4N
+z0wUf}yrbwJ&>3f#QJFFn$MHdZaPY+$#}{XO@!1()eGu0^N$;&AWRkttT6^tpt-UTg
+z`^SG~zX7lZpUAMGM1tK72b>I5Q~V4MB)K*b7>P|Oag)K>t7@vbkD;WoDJsFmuq)3K
+zTvPdYLQe(KNp*UBAQBzV^R#M=>xp<iX9fxyN_$|8r}VR`LbSc_z;l1PP{!a$D``WO
+zA)#EDtzhsrh6ck6rXyxX)h2qHqV_)X&QJFJUv+fY`$m41B~&w1TY6bjO$Pch8J-KP
+zhAG2?k}}l7D`A5hK5S&DSkMzH<Uda&7-|~B%g@-;G$!_La^peNF}PGy$#7H8Fw{0S
+zg%@B3i}Ic__)#xmiyIH2fx)v<g+ZF+#;|hEwBj}<c5HLwVKg$>HA}pH4tudDA}Gyn
+zw4jxtEUm{>C6gaeG{r&*m0~*r5_Y)Jj-5-A70DT<k|HfVOVBk1U{wzsp+K4xPKBok
+zyA!)4>~>S$yXNA!REOM73ofax5vZuWzZGzyhryjTxuJ6ZL?)N!rR4WsH}+vaoiDCv
+zoPmX0=woP?<-Paz5q=H`Cm&tr#C%yu2vN-}U+B-O$%K-TaR4PAs_sEI9>ZZ$Oz~-D
+zK-c2j997Lpq70L3rXkQnO)K#Qz>pim7@^|l>9nFz*|e?Z$O=)>g&r3kr!qgP$EOV!
+zA{2{y0s4dhjWTR%99(;=P<+yj;~1k#H1)#b@@kp)v=dK>NS&mp(^;Y}jFa6+HpPP;
+zFbsOAyJ;vvT*M+_HCkx3GfOzdu;-rox<CwZm1@O4peLwCE5oX$3};g@C3B3&k|gnj
+z^*B#Pc}5j{QD`?ORf>Lh_&)7X@!3<B-P*<ztJMdUv656$iblP#=iaQ$-B!W|&rFb;
+z)vK7G=FHElwlCp!F5x<saGeb0NxF;poE_@n@X~9FpdF%r+Kcnf;!HqxgYwE?Ghz(B
+zHS34Y9xIR(o~6;xrROp*xXfzreFkYCnJbT&JU%_d(-yXb(+qM%&t~FENENo$El%Bb
+zVV6$buj{5^W_Wr?F(>teQR&31GG4>$5-y8UeS@K4;e@JoMxR!S2Q74Rh{x%g%`seC
+z+?Ykh0_Y*GC6bEK5Z3kSY`SM<7T4M+0=0_ziB;~yl@J3wnT*gs2;Bi!C|S(!!rRoo
+zq9^@%@g-k!e&)}Af6;|^DO*;z`k4#wi&$n;3Ng%Dr#p5~)0E6Wk{gC%NcfOp>;F2e
+zgli0S|E)@wTR|E1Q0Sfz9~)g7^bVkLg17+9jAlpkO|UPl<w+Wyme2{6Mt4C0Q<$c?
+z6iK8Cn{B_7h8tiPZbLfmDXrS#k#E8swz$e7H)L^DMQ+&Q))l#+{Wd(uZ(@DW;d8Xy
+zLX8chK1b^u(Kbii!UGIJr_Xr{n;AZaUr<{azJ(N&e9{b>M!!UxAUZz1`<oygMAB?o
+z>#nNz1j!nST5h1X%h^gBx}-KSy1Y)W6!W@bU8SV%d1MCtw{d`6IvA9Fato=<;t(){
+z@TgDrN{blJ5t=<mX(*Y&G0VO@gV99*WkOa~aKu8US(u)|38LEODbLe|HE-!Go)PeZ
+z5vGN5tc_fb&4Mpp5XTU|S;Q={$eZ2D+huIAa#R5sn^1;k%1<{c(T{aFOb@7IsK!au
+z;5m8=U4)nPH{c4rrLL0pXQ;z<Y{m_G$IMc}d`DP!(12gC6@SpP<}Z5K*wDnv>ETj~
+z?W_*%Y#Tb+4(wt<>}LJwW+U`!m_#o-PtOEVJC{&Swkn`Or`H2j3eq@D@(PwghGg_d
+z$r3P#vZ0wpVG>nBI0um>%8q`v4`*<es_!~}#yRY#in~Ex<%p8V%O8*@%0<3@jc17}
+zC2v0`i_b$QAE)pFQDrz^tl|RN1wwm~B=xY}#VJS<E=ppY|JF(r0sM_^<jPA{OI*Us
+gG;bt_ULlw_t??~ue8(E!!w0l36Ll3IQGxpY1prI&G5`Po
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/Tab_Privata_protected.class out/production/ProgramowaniePodstawowe/struktury_danych/Tab_Privata_protected.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..8f6f948697772d2be0c9d6b1a6c0d559e79cecd2
+GIT binary patch
+literal 2440
+zc$|$?TT@$A6#jPZq-hCYp{0Pd76ih@LThVNu$GF&1`-PvBP!iVPT`Q`9OmStPMGnn
+z4?Z~K_@-6I(U<CDtI`>C`t0~GeDJ})pw;^AeFB96oz9tA>#V(Q-@5Gm>pz<h0i1;$
+zg%AEP0x<*;5{R$LTXLi%t>uw)Zq>-U0-+10Wx5jr{=WX}4Tzv2jA#r85Zh%wSF5;2
+znO1g{PKQ%kW7;Db$F$rz*D+){+02}WVrWEMpsg&6#-wfKrMqCdEBvdt(sC>G?VIjT
+z?Fj5L!g4Z-X0(LyObmz7D$ue|e1YJal2nMj0s6125JzG-stOHj%aYX$fkR5sp%krQ
+zbP4oUT&G%et4?jHAgx+{Wn^CFmYC?4bmh{TW4mmOQHY`wenpPQa01T>oG6+3^;|7o
+zxT?yUl^N-*vnvcRZ551SMdnusv2Sr&LFq(K486*&vr;X~lyc43g>};?sgxOK-B_Qe
+zzq0I$p<jV+F|C`nQ<nMKs%08;u5`_O1NDg*1~J4@X#i3{OsnIO7+z4vjoz`cujSV*
+z+02<AYKC8tfFeOfLW+bHiQo{M;yGoU+WXSA<aU(IR`~+4`bjm%AAxpHylj_i71l7h
+zUMraynJ>y^Lm)6|7swh@re(}l%Q?egPfI*$PT6@`x-K14$@Rm4yJB(^`ch9fi6kpF
+zxq7b53HTPL1rD;<d~rsuZ3R?4CM!$R5@_vP+;2aqm(DWtw(O(k$}l`j)bM2Pl*dLr
+zHYO0Av#U<tm@-wq_I+^<tEjv+mu%Z*WpZuCa98X?r7?tSQOsdJj5pQwAd-_$0GQS-
+zyJ*yLcsFKB=3U#V34FS9(d&j@&@0j^l#I&Blx-KQYstL@{g>l>ZOz!nd}m9%ry<$D
+zH^ihYmF7&>NJj7$M<Kc+c$?E$s99#Qn=`1L?-mif!}U@v?DjTBpS{N?VaM6_vTEfG
+z&tY_@L(X#;-PfVuIgIUexam2J?d!1O%}mXAc(0zjK5bcsGg*?AictxpDA4m%jSqv*
+zQrG{R^5S~NIL=$^<0Ba&<&EZFR9#_mAI@nWz)PA7oYx#kY98bXUvSb3lt##fIvscb
+zaZkIC>#*w3j|tM4XMmS+QHSFTR(Jl07Jl-9#KS;gyyJ6pb_Cb%py@usiH_k-90WGd
+zbldm%?&IHiwt=>LI;zUh&Ky7-4QS#XH?y2L;~wVo)vB|0(=LcEyh6~b(1Ch>^>+!A
+zL~vOb?SF)zX!}!_)w_-C3wj606aI1kL}%jRH)u<A4u=S?p@Tm+#&7$@-N%0rRL3Tv
+z5azKb(7O1zDS$p4V}cG1?g;<82x@?xpU@xz{Mt1<)q=z}yhI(IkEOh-!7HE#;Qt!|
+zAzBpD22A0#I?|6BMg<uE37y#ocs3Oe{~XQwBk61)l+Fg@{0YSi>1;UuS2`OBq_go*
+zJe;0M3~r!Xk&}rHJpW{HUR!(kGWTK_eHbH(bHsFkNVeL_WVnK9@(9l0b>bGZZPd7Z
+z{O{k|4snXIYU6iX;Ocy)&Sw+x!jByPLj23`F+A9WUnmVOG(Gx|;!u+qq&T$D^xIby
+z)l&R`flZv!?WTAi+>y~OX;3T2b}3J9NkdwBW|#8CUDDa@A$pCN;$DF^5o+RW!4Y1A
+zE?$8iY6sbh(=0p5@lA3P*Vv95Y=n)g_y9B9>sj1E2H)b1?P0SC^$|z#HSJW>;`j_H
+z{`naF6Z&1$_hD9JNYfw8+rStC3z}v%UDWhlO_wy4n&ve%G+l<Nw_9KpC0IE6FT%ee
+AMgRZ+
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/Tablice.class out/production/ProgramowaniePodstawowe/struktury_danych/Tablice.class
+index 07890d70166572d5d662ad43ce3a9aab7364fa06..cbff4ec7613811d6eaf19caa4b4554976911ddaa
+GIT binary patch
+literal 1980
+zc$|$@T~ixX7=BK6lMNx1<@=+7rW9Hr5UgUWrcf;fiwy(~;$*ncL$U+ggx#2IIzz7e
+zBOIM^#$MPPZ|Vh|L5CmUy+6Twud5cHvq=F39GT%g?>XoFc%Jut_vDvX2ZsP|V<Un9
+zGy{4RL4*X%NAj_pDM@F0CbRX(%6kH#JGNtc^8(uV#6}CkXfY6pq7~79m}mE@p0!IW
+zw??O)w0~o}Giw#w@v>gUlDnx+=DZX|J4}JTU0JjiTqiHR&unjpTGf+|R~6_TUtXR_
+zpNi};#C9rzPIMXQj-m&>0$t}M5HQMWS8|A8{A`GcjZO&kD+B||;-WN{qll>-K|h*0
+z8CF?Coh(+r+Fn)L5dobcHVlk1Xw|FKie9a<_jy4&d-<K2b-7it^Hv1cpeb=9ig8Q`
+zjHK;+eQPgMc&Ny)$~9T3vvzb@b_!OpD)T$cJif`u$}JJalyd89xUIQ`x@|euTBUB)
+z*XgNjl2ObkoA!oHwzeyMjQ|(ig5_U0)@p5c%c>|?Jn2lkd0E<!6<h6_hq||8vjKzY
+zi^!w|gw6kD_Sut+AK0YYmi1)5xFXB1!&C`?R$o%xmA0c=x_MqVcrPp4%-D6#HJj-*
+zvI<19Zmp8HmTVP1+60qSE}X%8uImx7EU#GJj$5d<hp-sI5<WEWK((3(M^B>L&SSS|
+zHIp>vZ%O7ox3VYj)#;gO8a9GHkWQgwRY%jVTdb8+XVG5dxV~4m&M`mDxACE+CeDUf
+zkfl=A_N-JG4+X|VoCQgiEN9!>iBI2*+o$(iR$ZNmFjiPr5ub{Ok)al!iwo9l*>SAO
+zLP=JuR@J~KjP}2n8dw(?{%=!05e;Kp<tzrE{(}6@_@Gd}!QBj3p-v}XKs=`sz)i}K
+zf2iS2%4ov?Z()|JP@hWE`8!%@TvI>7NF3^g#Nh$jfPHkR-CXP&48?-wuhF6IW61;b
+zsmsA9fum<fzwvAzL(ly*D&;T?N&_8y#|F`YI3h?=pJmARaLI=fr)@7S-^MMUO{xh>
+zX}9qXVZBQ|0_{(}5q&Rxu2aWw59zIQUDW2Z`Ju$&QzQ~Y$q)e!as3v3F)m-sDX>E)
+zU^VgV=vSV_4sgZi_HW?V2^NGM;Oi4X7y8jnh&@c)Nznb6#{ll*vQJ==0Cdt)1XSe~
+zj|nU`2?Ve}x{98n(hBV_j*PgWxCGQw(&X|3-Gf}G6&LN6-lK<~!i*()bTW9N6Z7w?
+z2lI+jK~akBBYuK;goRZl*U71kW$orV$kQtvlQE1E`<Rb+mPrh9Qg~JArjPMXALC6l
+z@#+MZ@_99o2VTJtLcC-dT5tz*P2}IxP*Gq13D<HjFqSr3e~#p|a3-gRGP$5hC1e&d
+zIm7%TlMCyaoEb6=N+U=SHfdwFm{H1zmRU(m?c=%<lS)jV4DcXF7z7k%$?p^5GAXSR
+zbe1)IJxRpC=G^5PMjG#vn4qoc6XQ=WKJcU6V?)3KX}lBo$d_qfu42ufHi3^B_frh~
+E4V-?S-v9sr
+
+diff --git out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zamowienie.class out/production/ProgramowaniePodstawowe/zadania_dom/plik_CSV_zapis_odczyt/zadanie1/Zamowienie.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..ffb1c775cbd11c0bfb51c54081ef2cfc7b9a5a24
+GIT binary patch
+literal 1408
+zc$}S7?QRl56g|UtDHf!(*jjCCTLrYms<l-be@H?~f;Eu_6a7I3n6z7#9kRQ$fhX}H
+zjM2o#q(6KBpTp-c-r3!hrl2uGm^&ZmoO|ZZ3_pIIe+RIQ-6(wUhY^S&h!8{Kn4j>x
+z&W*$T>&CHY+6<vx&Cu)@4E{{E7AXGQc{70tM8lYjA%<%VTLa$WhQ{kH*~xcxtz9ox
+zYxM!|YF1sgnuETbcM)PU|BiR$sV1n;5NHa6Gq6$waR#3-mG1Qzl9*-)8hmg{tI5jH
+zQPnmz<FKG$Gcn8}tzf;5FiE7Gr2WjrFprxI=?-s;qBNS^eyiC>)U#}E*cL-3GpbiA
+zXGbT=UQxElWxS#pV!zjE2=jn9bfGNCCf94+)YRCU4A@5+>2Fv5s~D6nohg+^ZDeZ<
+zv93Aj6Ms+?hBD+0xzXQuH$R-=`)<`HyRxAP(__%Vm6VJ-=aFc#%n-4qn~5Qn8C!;E
+zRrbuLC~0b!@uB4ng{2GgQcByhP2PPa>?7H-;vwXtc!<p~9;xGa%&<C?)r=F_7M{9$
+zLM7g`rP*iraQSRJpewq^jg~H~)ryquUbir6^H0Qsepifvzpq@q=7sF2M3L)yRkKAQ
+zf-SmfY>B>9#<F1uv#4{+5>^;H3~T@7I*jKGxBm{M$L4~uOn2NzH`))TE;`hQ9-9;C
+zeNY>u6?(GNF3@O?(2U}2?i*Mx89qZKmz+97A{RJA>I<#-aEsb0QUsz1U=lN=ciYi*
+zm{`OTMWwpzsp`ZEP)s?hD@t^M<Z|mIJk*>e1`sD?LOo#0p&U*-+Bui+X{+8H%F3MH
+z3hm41^i~P2cDjbUUgkVSg$m}rBJ$}XRmho4U$Py%uze4iG33<8E9CjH<SaRL$-9md
+wsxpxiD!URn#|_}~6{W>XN=Z-2kNXbl0oEx-Xl;XjPw>>KI{iQ3848&D4N{vnNB{r;
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/stos_lista/StosLista.class out/production/ProgramowaniePodstawowe/struktury_danych/stos_lista/StosLista.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..cf71f0ef269528a013fa9fb7da1aef0c430786e7
+GIT binary patch
+literal 2705
+zc$|$@-%}G;6#gy=Y>3Mbqe1~~gN+gbg4)(!pi(JRG$<8{6|Hs&Te2kCU3WLcSZnP}
+zXY{!bo%W?OJ~`8|4|Wu1aHhU=+L`_({UbWH-`$N6$Fx9(d(XM|-0z(GopbK~`OoUF
+z01o5pDC!VW5LQu-27%TkZCM-4Yv$tM`S~S1;|Vkj8>Zo%5C|oEXB!bgqk^c4El>sa
+zxSmtYc}1suZ9y~3ne3qJS?;yG;d<KOG{v-(c+|6OfxYRC%*XP2VMsx<Kw>kdQ8b}d
+zM!r=bm7LfdeDAD+Z2|)u8BY~muRL}mquZWgnNh?LlK$FMwBrqd$fEAeYWbq>6Eh*V
+zI#qOGr+~t(DMw!xNG5wX7gQtO#9IpDD!Q@zl{8G3T~9C2iB)7WcBK6s!y24&4AYzT
+z99=66#hA;4iappX&|c7T`lw}QH1DF}Whv2->A5_coajwg0eeJP9Eu`|UIi%?edrh1
+zRs&z4-j<q#cpad3RzeJ@7?cI1_?CI{6_I>Ja8SiNcvm277u_r;1~Dtw52-9a9tgWx
+zt0WhWsyHTz4cV3*11mtn9+$BFa{Hu;5xE_<bv+kj)h3t_X%xW+D#kEQ--bI@u)VUM
+zk+~ScI4wz;ka5q|xOxO<S;BK#p`7D?+_fF8qz}aBw32&MkGsZiKg3JroMmc-Zkhf`
+z73XkXAj<Sk>aMFTGWXk)H93vpBNZ3q{aWmRNG+3_akPvc!HhujsFkzwB}31}yZOgk
+zjamytYe^fXey&)U*PR({KF^g{+RAA8S<Nw|URex#S%V4f*|4_!_8VgUmV-(a<f6%s
+zWm2;%U?H!--V7Hs!xU&sUapm4a$71dX`Y@F*uSCIS38I9!<w_mc(>KSmIc5g3Ni{7
+zUzVS5Fq3txQV?Qv+A2C3ecX^r^V-D*q%oW2lx2C0NwX()FKaEhEe*&=QGltyk_Eu)
+zCDw5bbJ@!275_n_jB6Rsa#%OtSJ!vNFaSNRnG1Q{O{6U=SG0#-zsP?boGIIS4fAR$
+zf|quv_jQO-EuWt@Je{TL2-Jyq1nk24Da$@4BH#nlFvV_=@(n3-IZpW|8LPAcbpdt4
+zG<9b*ueq*HroUv-Z|ar`z7lxz|4r#OFy_M*VON5kTPHsbloZPRs&M?6+A!Az=V<CF
+zL`pn?@`zd;W;r&qm4QZfY?Pyli`3M>8lT{jkIGl1f;2%?>1k`~8JaG2r5;0hik4RZ
+zqrO2af7^Yqw%|YoOiFXOOgJImoC@r9+DNN}1pEVAo*{PWDYieC>I!xYrvjmaj=CPw
+zF64V^V=&++K_N~HIw^HwH+EKeO;o(L^Aizxz2cu1Efh!A++V2h(_Y*Cy2pU5ZhG8J
+zkBKU>+AE%_@cA%S@K5>I1)2hUCHw&4&^l^^znQE;YpOyc;af)J`NM1Zyj`KIN8+XX
+zen;mo*wx2KSMfHmf*#5p=?5?V;_?diJzDeBNeG~ynEROQ0TM8XI1XSh4py<&Q}JHU
+zTYl<Cbj2@`y1!AcpsADMRa^^V5qEeb%<U)75Fu&%(|xUtD>%^Cx**2}IjrElAig83
+z7?SY~2kMDcykDhq_td6$M_2Kouga~9T#KEd@&L(6%Ka-yQ{yzXzSDf}rM&OCl%^>?
+zA}=M}!d-qf<b0nOxr^`oIbiH6GYcGIgB@n}kFchXqJy{C#ir`VaY`p}1}Dka2(pZ@
+z#I)by$~QPmq;cG1nBU?wG0)&fuHEPS6X%CW<1s&KlJz)!-6Q&E(0u-%U>+IH5&Vn=
+zA_x4pBlLohbqaKaTS8%xD)>Cg!&$%i3@rIz^~mwab$@jIvFMK_e=Oq*zexqdyp22P
+F_!s6DX2$>k
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/stos_lista/StosPustyException.class out/production/ProgramowaniePodstawowe/struktury_danych/stos_lista/StosPustyException.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..7f1f4b8db87546c6b74feede9c42c4fb9ddad4b4
+GIT binary patch
+literal 397
+zc$}3`O-sW-5PjRGNsZCghzOqATkE0mA|5JUL{CA)NUmj@F74KIQ}#p5&+;UA@CW##
+z#N8?=cyb12-VBfTn0fzreFJcY{Wcl|-Aq@iw`5B9)<)^NAHqW`fFB`1o8V|kA8Arj
+zF;DJ{(0s+No(i_syb=WdITu`C5F8BBA6}*<7xVEj4-gWJl$Pc}8(B|gRMf>HQPy!%
+za;0hF%x|6TFVW^;m=k!H)r=8zQZCqySxuR|r_<7I;<PGgnN!K#{Jr$_f-8cP^nYe!
+zf-tL$EZ8-7GKYUDBX<}2*s^bNL2L%twl%WTDH;|5!EsDp(0sPAfgM{z+kqB*o4Xc8
+OUo>>k-H7aMnDHmtyJgJ)
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/stos_lista/StosElem.class out/production/ProgramowaniePodstawowe/struktury_danych/stos_lista/StosElem.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..9a180842cb868dfe80fe0fb9b214d7100a956745
+GIT binary patch
+literal 639
+zc$|$<%SyvQ6g`tZ(x&OdTAy{HAkqdgOBae8Q79A@Dgjqz+J-hYO(mHW`cEztEP@L^
+zz>gB|Osfm&q72-7=ggdQ@0|Ji{`drNiai4w5;~G5Qb;qDhJ3<pp9g*Wwlj3Qf+2nG
+z1)jKINYv_178zu97$$Ns84e>6#*ZQnr|ljOrrm)ZiE-5Sy-0AoMdg+6ju=uC?#C_z
+zYe;^<L=h#1<WuNQ7>=5&h@3H4wZ>{!>kf%uj(gOx*z^MTCLVR%@Sb;kLdwl?m-`M6
+zJ-J_iNipyuhD_fT&U{pQY=c23;7(0htJPPX(`b$3u<KrXQaS&7a3Y<>0li-%=QUd7
+zpsL6W$_bE9Sff~`-GlrV%0=rP%&N|yTgNlxUln1UVi`$_S&9b5916&zLdgD{h7Bbu
+zE7^vrN;cA{-o)0TjZImerK~sT&wt`+1(uZHoSa$+GHhdK2|54rk6c+w-c`4%KUKSW
+A-T(jq
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/kolejka_lista/KolejkaElem.class out/production/ProgramowaniePodstawowe/struktury_danych/kolejka_lista/KolejkaElem.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..e78b716c34154452796d6e86be2beb1d7c18372c
+GIT binary patch
+literal 835
+zc$}4y%Sr<=6o&uwGSiM@TdUSfz2L4L#aX&gx)Ft9(S_2jq&4WY(<#iQ=sUSkPy`n~
+zfDa{}Wa@YaC2*3Q<p0l?ljoPmCjeVmHIPDDN5(`J8bhhaN8EO~cWxhbdZHULXgiMQ
+zgbjvtt=`TfhrABM!~{$RD+v9lA4dMw=^6K~x)*kT=!#ySpSn&Ea{D0O?YUyWkR5S1
+z5)7;<T?!_OC^2L_aY<D+T7S3NCRMFjZ_~6pJR`?q%kjivH0TKbgm+xZlv~3tciY@|
+z<bIsYgcnZ0kUJM)J4T@=H7OA!37yUk70_m_{y!u=c$3<-|0v}<jN@VCcg4OVF-sp#
+zH|2j|jrx_M|4PxIzN-~AkLE0>ub84(rrnXc0TitVFsphG-D3Bcyj6l}ie+Rd<|yWA
+z7$}h43}q^@4718qu4EbdDms}Po7-wnC9ON?*NLU3k_BaB#uvsm4D$(DV@#$gs&^nm
+yWy_?Q{s5vSAX);lfW;p`CU3rgRDJ}hV(A;m`lrssAd94_{sJN!E(<R!&B`l+0g;9P
+
+diff --git out/production/ProgramowaniePodstawowe/struktury_danych/kolejka_lista/KolejkaLista.class out/production/ProgramowaniePodstawowe/struktury_danych/kolejka_lista/KolejkaLista.class
+new file mode 100644
+index 0000000000000000000000000000000000000000..86090a9ae18ebc40464fdab0eaa21a5134f8e15f
+GIT binary patch
+literal 2116
+zc$}40T~ixX7=BI?*d$#@_$ZYk2({E?Ly1a1v>>HLu(5$+gH))Bhh&8%%WfvwFmmBP
+z@CWFO_r2*&J2uSFncjBB-_&t@&hA>MphJh@?0L_5&+|O*$GrLTuY(r=u0tjfK~zIb
+zM;qD&(%W)Z=56V0=I?E6n`KX+eadnyZ(1Ol$*v?2M?ynV#~J7XxrSG7R=s9@Z@nU&
+zz4BJR>e}XZRj%7s!;|^DfmKw7K+Kj60*)0=_iD~IcP15Kr;e0jYx}XzdktLz#_1uF
+zNTWxE*GmPNLUtud$UYtC@Q#3HHRg6|-ku-bnsPm_V*u~+reS)E=1<g{&%BLbg`dWd
+zj`uJu5Z^St6=^q3pP-<wF6ek47fG=B55agQ`!)<pe^f0W=*Xz3qOwv+z(7vJn2yUB
+zf1{42y@qG*(93O->uk}#vE2Mp-EzE=S2tw<`Js-Fl;l{=G^^e0jtL!Ca8=;kj;xxq
+zu2YuY1Iyduj*1+wK`^GXc!bF#<R-zc;}Z>^>bQYPfu0ix8GTJzwxd9fLj*<oOviMf
+z$hGZm2uyH4>sFY|RMB$G#pce2SzneLHcz^XZduwZvTi9mJdAl;7Ij`eWqSQSrR0v1
+zC(G3ZSqov>c7qa%0wGOXWiz%TEsF2UJUmG~?`3_H%snSuGx(5QAX##o^|Co{DVnaM
+zGRD<A7V@_1dQ>lK3#PZ_RvM{x+)tu}Wes1e0+H+DA%*4ax>Yk|3Tiel%br_jhyQvs
+z(V=4idPh1H+iYAcx^A^un>;T0zaB2{)yxyzj|Lr#k;&|Fh*@ddCCf7><M@U-Sz_DW
+z7#4A?DT5WKA)pr=$E?qCax~0_hVKMMPZflQb%CM(cjasgoH4>~i?HP*{Nt$ccW3->
+zJKL_!UuS6DLX0~gW$Z&3hFE(B?HM|r_z!Mz?L?GooNfv3lekSw51wEapYto!;0fUh
+z{HnWN;}3MaL?=JmOK7o2h(#asJnCb%`#v2<uzEwRIsUgH(mkVKI0{18Ur4WH<enqF
+zI<SxK1*3(tzaecHW1-?lG)OkqLccM_qbIM~&XW)5qW&HZt6mJE52Ms<a4aeX!vS=t
+zK<(!71&I^5fIHL|@l_=dd4)j@X(gCrB~&&a2Am26MOEA_3?9as^vf^=jU_pryE)%a
+zXgr*Ljrp@*H6ZgQ=9Cd^Mi_07-nbzc>A>TEg*r;I3@Ng-4btXti8EA@_XW5ic?$hu
+zs7i*0i1rFYD((Wl45hpXrEEM$e03kA#az6FOSyE?U;F%Z#9x2s`V`q*3;6?l476}9
+zFsBZ1^AzS`$Bna5!4$^{(}4+A?Fxln<<HMGhBi&>CIgtkeR@j<av0bK?xN^->lzk#
+h!=DH&`ndP7<o9v}U-9&Tzpmn;Umt;Q@jZS(|KGI~(kK7`
+

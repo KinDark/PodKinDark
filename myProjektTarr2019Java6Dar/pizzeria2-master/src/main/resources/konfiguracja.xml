@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- bean definitions here -->
+    <bean id="myPizza" class="impl.MyPizza">
+        <!--        <property name="name" value="Margherita"></property>-->
+        <!--        <property name="price" value="17"></property>-->
+        <constructor-arg name="name" value="Margherita"></constructor-arg>
+        <constructor-arg name="price" value="22.5"></constructor-arg>
+    </bean>
+<!--    <bean id="innaPizza" class="impl.InnaPizza">-->
+<!--        <property name="name" value="Moja Hawajska"></property>-->
+<!--        <property name="price" value="15.5"></property>-->
+<!--    </bean>-->
+<!--    <bean id="myOrder" class="impl.MyOrder">-->
+
+<!--        <constructor-arg ref="myPizza"/>-->
+<!--    </bean>-->
+<!--    <bean id="myOrder" class="impl.MyOrder">-->
+<!--        &lt;!&ndash;        <property name="pizza" ref="myPizza"></property>&ndash;&gt;-->
+<!--        <constructor-arg ref="myPizza"/>-->
+<!--    </bean>-->
+<!--    <bean id="innyOrder" class="impl.MyOrder">-->
+<!--        &lt;!&ndash;        <property name="pizza" ref="myPizza"></property>&ndash;&gt;-->
+<!--        <constructor-arg ref="innaPizza"/>-->
+<!--    </bean>-->
+</beans>

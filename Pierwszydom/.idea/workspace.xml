@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="a08dc3fb-94e8-4318-bb62-5c6536dc6869" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="1Y6eBvzzaazwCVU1ICdzKxe1Pvv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="KinDark.Main" />
+      <module name="Pierwszydom" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a08dc3fb-94e8-4318-bb62-5c6536dc6869" name="Default Changelist" comment="" />
+      <created>1582267338651</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582267338651</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="784" y="88" key="#Inspections" timestamp="1582267698973">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="784" y="88" key="#Inspections/0.0.1600.860@0.0.1600.860" timestamp="1582267698973" />
+    <state x="972" y="171" key="FileChooserDialogImpl" timestamp="1582270390482">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="972" y="171" key="FileChooserDialogImpl/0.0.1600.860@0.0.1600.860" timestamp="1582270390482" />
+    <state x="428" y="95" key="SettingsEditor" timestamp="1582275088347">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="428" y="95" key="SettingsEditor/0.0.1600.860@0.0.1600.860" timestamp="1582275088347" />
+    <state x="931" y="254" key="com.intellij.ide.util.TipDialog" timestamp="1582532457278">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="931" y="254" key="com.intellij.ide.util.TipDialog/0.0.1600.860@0.0.1600.860" timestamp="1582532457278" />
+    <state x="132" y="53" width="737" height="807" key="find.popup" timestamp="1582270383142">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="132" y="53" width="737" height="807" key="find.popup/0.0.1600.860@0.0.1600.860" timestamp="1582270383142" />
+    <state x="182" y="50" key="new project wizard" timestamp="1582532499734">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="182" y="50" key="new project wizard/0.0.1600.860@0.0.1600.860" timestamp="1582532499734" />
+    <state x="898" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1582268440607">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="898" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1600.860@0.0.1600.860" timestamp="1582268440607" />
+  </component>
+</project>
